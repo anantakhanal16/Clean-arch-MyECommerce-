@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - E-shop</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(to right, #d3d3d3, #f5f5f5);
+            color: #333;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            background: linear-gradient(to right, #d3d3d3, #f5f5f5);
+            padding: 14px 16px;
+            border: none;
+        }
+
+        .navbar-brand {
+            font-size: 26px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #333;
+        }
+
+        .navbar-toggler {
+            border: none;
+            outline: none;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: bold;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #007bff;
+            }
+
+        .form-inline input {
+            border-color: #ddd;
+        }
+
+        #wrapper {
+            display: flex;
+        }
+
+        #sidebar-wrapper {
+            height: 100%;
+            width: 250px;
+            background-color: #2c3e50;
+            padding-top: 20px;
+            color: #fff;
+            transition: width 0.3s, box-shadow 0.3s;
+            overflow-x: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure the sidebar is above other elements */
+            position: fixed; /* Keep the sidebar fixed */
+        }
+
+            #sidebar-wrapper:hover {
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            }
+
+        .sidebar-heading {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .list-group-item {
+            background-color: #2c3e50;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            margin-bottom: 2px;
+            transition: background-color 0.3s, color 0.3s;
+            padding: 10px;
+        }
+
+            .list-group-item:hover {
+                background-color: #34495e;
+                color: #007bff;
+            }
+
+        #page-content-wrapper {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px; 
+        }
+
+        #admin-content 
+        {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline-primary,
+        .btn-primary {
+            font-weight: bold;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-outline-primary:hover,
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+    </style>
+
+
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">E-shop Admin</a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Special Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Product/Index">Add Products</a>
+                    </li>
+                </ul>
+            </div>
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="input-group">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                </div>
+            </form>
+
+            <div class="ml-3">
+                <button class="btn btn-outline-dark mx-2">Login</button>
+                <button class="btn btn-dark">Register</button>
+            </div>
+        </nav>
+    </header>
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+         
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item">
+                    <i class="fas fa-plus-circle fa-lg mr-2 text-success"></i> Add Product
+                </a>
+                <a href="#" class="list-group-item">
+                    <i class="fas fa-cube fa-lg mr-2 text-primary"></i> Product
+                </a>
+                <a href="#" class="list-group-item">
+                    <i class="fas fa-box-open fa-lg mr-2 text-warning"></i> Product Brand
+                </a>
+                <a href="#" class="list-group-item">
+                    <i class="fas fa-tags fa-lg mr-2 text-info"></i> Product Type
+                </a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid" id="admin-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

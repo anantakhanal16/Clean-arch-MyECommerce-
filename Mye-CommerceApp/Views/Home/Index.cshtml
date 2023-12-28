@@ -1,8 +1,145 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        padding: 30px;
+
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        flex: 1;
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    .product {
+        display: flex;
+        flex-direction: column; /* Display products vertically */
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+        .product img {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+    .product-details {
+        flex: 1;
+    }
+
+    .product h3 {
+        color: #343a40;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .product p {
+        color: #6c757d;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 18px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+</style>
+
+<div class="container">
+    <div class="row">
+        <!-- Filter Area -->
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-primary">Filters</h2>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="filterOption1">
+                        <label class="form-check-label" for="filterOption1">Filter Option 1</label>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" value="" id="filterOption2">
+                        <label class="form-check-label" for="filterOption2">Filter Option 2</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Area -->
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-primary mb-4">Featured Products</h2>
+                    <div class="row d-flex">
+                        <!-- Repeat the product structure using a loop -->
+                       
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="https://source.unsplash.com/400x300/?product" class="card-img-top" alt="Product <?php echo $i; ?> Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">Product </h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <button class="btn btn-primary">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="https://source.unsplash.com/400x300/?product" class="card-img-top" alt="Product <?php echo $i; ?> Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">Product </h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <button class="btn btn-primary">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card product-card">
+                                <img src="https://source.unsplash.com/400x300/?product" class="card-img-top" alt="Product <?php echo $i; ?> Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">Product </h5>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    <button class="btn btn-primary">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Mye-CommerceApp\\Mye-CommerceApp.csproj": {}
+    "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\Mye-CommerceApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Core\\Core.csproj": {
+    "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Core\\Core.csproj",
+        "projectPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\saruk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Core\\obj\\",
+        "outputPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -69,14 +69,14 @@
         }
       }
     },
-    "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\saruk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -96,7 +96,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -150,14 +154,14 @@
         }
       }
     },
-    "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Mye-CommerceApp\\Mye-CommerceApp.csproj": {
+    "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\Mye-CommerceApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Mye-CommerceApp\\Mye-CommerceApp.csproj",
+        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\Mye-CommerceApp.csproj",
         "projectName": "Mye-CommerceApp",
-        "projectPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Mye-CommerceApp\\Mye-CommerceApp.csproj",
+        "projectPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\Mye-CommerceApp.csproj",
         "packagesPath": "C:\\Users\\saruk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Mye-CommerceApp\\obj\\",
+        "outputPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -178,11 +182,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Core\\Core.csproj"
+              "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj"
               },
-              "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -196,6 +200,28 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

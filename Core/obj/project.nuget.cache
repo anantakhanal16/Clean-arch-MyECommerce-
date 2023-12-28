@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kpdt5v2BEEVE8bV3HpazP4HokEXf1POH60FhFuyCFf3sL0gXg3U0nk8JYnazRMVqNjF3hySURhj86bIZwKVKmw==",
+  "dgSpecHash": "iD1Mwqw9wR4XWAaj4bpn8/aM6UO7VU8fJA8IzRP+DZTjh3gnwJlZnMgIaL0FkBywGv8hDe2GguKxy16y9jYNhw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Core\\Core.csproj",
+  "projectFilePath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saruk\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.0\\microsoft.entityframeworkcore.6.0.0.nupkg.sha512",
     "C:\\Users\\saruk\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.0\\microsoft.entityframeworkcore.abstractions.6.0.0.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KQSvD8t930LFTDDU93iCxf6uMZ/+XTvcIT/lyjWanguRFpKxqOW2vLOEnPCBdAbgRxQUQMXgUmAAYMuNz5s35A==",
+  "dgSpecHash": "nal3abXnbwde0awkqRHJ8/Wg1p7E2sK2bGh031r/uBB6cpKKnxAwpbXmrgf0CxmjzRZC/tPATp0LK2dJxKxyHQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\saruk\\Desktop\\working ecommerce asp_net core\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saruk\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\saruk\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
