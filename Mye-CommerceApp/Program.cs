@@ -1,19 +1,17 @@
 using Core.Implementation;
-using Core.Interface.Repositories;
 using Core.Interface.Services;
+using Core.Servicesdependencies;
 using Infrastructure;
-using Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
+using Infrastructure.Infra.Dependencies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.CoreServices();
+
+builder.Services.InfraServices(builder.Configuration);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
