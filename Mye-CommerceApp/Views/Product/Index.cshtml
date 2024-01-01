@@ -1,95 +1,44 @@
-﻿@{
+﻿@model List<Mye_CommerceApp.Dtos.ProductListDto>
+@{
     Layout = "AdminLayout";
 }
 <body>
-
-    <!-- Add Product Button -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">
-        Add Product
-    </button>
-
-    <!-- Add Product Modal -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Product Form -->
-                    <form id="productForm">
-                        <div class="form-group">
-                            <label for="productName">Product Name</label>
-                            <input type="text" class="form-control" id="productName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="productDescription">Product Description</label>
-                            <input type="text" class="form-control" id="productDescription" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="productPrice">Product Price</label>
-                            <input type="number" class="form-control" id="productPrice" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="productPictureUrl">Product Picture URL</label>
-                            <input type="text" class="form-control" id="productPictureUrl">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Product</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Product Table -->
     <div class="mt-4">
         <h2>Product List</h2>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Product Description</th>
-                    <th scope="col">Product Price</th>
-                    <th scope="col">Product Picture</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>PictureUrl</th>
+                    <th>ProductType</th>
+                    <th>ProductBrand</th>
                 </tr>
             </thead>
             <tbody id="productTableBody">
+                @if (Model != null)
+                {
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Price</td>
+                            <td>@product.PictureUrl</td>
+                            <td>@product.ProductType</td>
+                            <td>@product.ProductBrand</td> 
+                        </tr>
+                    }
+
+                }
                 <!-- Product rows will be dynamically added here -->
             </tbody>
         </table>
     </div>
 
-  
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Handle form submission
-            document.getElementById('productForm').addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                // Get form values
-                const productName = document.getElementById('productName').value;
-                const productDescription = document.getElementById('productDescription').value;
-                const productPrice = document.getElementById('productPrice').value;
-                const productPictureUrl = document.getElementById('productPictureUrl').value;
-
-                // Add product to table
-                const productTableBody = document.getElementById('productTableBody');
-                const newRow = productTableBody.insertRow();
-                newRow.innerHTML = `<td>${productName}</td><td>${productDescription}</td><td>${productPrice}</td><td><img src="${productPictureUrl}" alt="${productName}" style="max-width: 100px;"></td>`;
-
-                // Clear form values
-                document.getElementById('productName').value = '';
-                document.getElementById('productDescription').value = '';
-                document.getElementById('productPrice').value = '';
-                document.getElementById('productPictureUrl').value = '';
-
-                // Close modal
-                $('#addProductModal').modal('hide');
-            });
-        });
+   
     </script>
 
 </body>

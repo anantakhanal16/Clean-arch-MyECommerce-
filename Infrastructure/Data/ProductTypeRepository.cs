@@ -15,6 +15,7 @@ namespace Infrastructure.Data
         public async Task AddProductTypeAsync(ProductType productType)
         {
             await _context.ProductType.AddAsync(productType);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteProductTypeAsync(int id)

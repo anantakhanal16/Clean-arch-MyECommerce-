@@ -1,6 +1,7 @@
 ﻿using Core.Entites;
 using Core.Interface.Services;
 using Microsoft.AspNetCore.Mvc;
+using Mye_CommerceApp.Dtos;
 
 namespace Mye_CommerceApp.Controllers
 {
@@ -13,11 +14,16 @@ namespace Mye_CommerceApp.Controllers
             _productType = productType;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var productType = _productType.GetProductsTypeAsync();
+            var productType = await _productType.GetProductsTypeAsync();
 
-            return View(productType);
+            List<ProductTypeDto> model = productType.Select(item => new ProductTypeDto
+            {
+                Name = item.Name
+            }).ToList();
+            
+            return View(model);
         }
         [HttpGet]
         public async Task<IActionResult> AddProductType()
@@ -25,9 +31,12 @@ namespace Mye_CommerceApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddProductType(ProductType productType)
+        public async Task<IActionResult> AddProductTypeComplete(string productType)
         {
-            await _productType.AddProductTypeAsync(productType);
+            ProductType type = new ProductType();
+            type.Name = productType;
+
+            await _productType.AddProductTypeAsync(type);
            return RedirectToAction("Index");
         }
 

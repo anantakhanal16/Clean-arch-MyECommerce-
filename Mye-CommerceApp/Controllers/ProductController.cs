@@ -1,22 +1,47 @@
 ﻿using Core.Entites;
 using Core.Interface.Services;
 using Microsoft.AspNetCore.Mvc;
+using Mye_CommerceApp.Dtos;
+using Newtonsoft.Json;
 
 namespace Mye_CommerceApp.Controllers
 {
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IProductBrandService _productBrandService;
+        private readonly IProductTypeService _productType;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IProductBrandService productBrandService, IProductTypeService productType)
         {
             _productService = productService;
+            _productBrandService = productBrandService;
+            _productType = productType;
         }
 
         public async Task<IActionResult> Index()
         {
-            var products = await _productService.GetProductsAsync();
-            return View(products);
+           
+            IEnumerable<Product> products = await _productService.GetProductsAsync();
+
+            List<ProductListDto> newproducts = new List<ProductListDto>();
+
+            foreach (var product in products)
+            {
+                var productDto = new ProductListDto
+                {
+                    Name = product.Name,
+                    Description = product.Description,
+                    Price = product.Price,
+                    PictureUrl = product.PictureUrl,
+                    ProductType = product.ProductType.Name,
+                    ProductBrand = product.ProductBrand.Name,
+                };
+
+                newproducts.Add(productDto);
+            }
+
+            return View(newproducts);
         }
 
         [HttpGet]
@@ -27,26 +52,103 @@ namespace Mye_CommerceApp.Controllers
             {
                 return NotFound();
             }
-
             return View(product);
         }
-
+        
         [HttpGet]
-        public IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
-            return View();
-        }
+            ProductFromDtos productFromDtos = new ProductFromDtos();
 
-        [HttpPost]
-        public async Task<IActionResult> AddProduct(Product product)
-        {
-            if (ModelState.IsValid)
+            var serializedData = TempData["ProductFormData"] as string;
+
+            if (!string.IsNullOrEmpty(serializedData))
             {
-                await _productService.AddProductAsync(product);
-                return RedirectToAction(nameof(Index));
+                productFromDtos = JsonConvert.DeserializeObject<ProductFromDtos>(serializedData) ?? new ProductFromDtos();
             }
 
-            return View(product);
+            var productType = await _productType.GetProductsTypeAsync();
+            var productBrand = await _productBrandService.GetProductsBrandAsync();
+            List<ProductTypeDto> Types = productType.Select(item => new ProductTypeDto
+            {
+                Id = item.Id,
+                Name = item.Name
+            }).ToList();
+            List<ProductBrandDto> Brands = productBrand.Select(item => new ProductBrandDto
+            {
+                Id = item.Id,
+                Name = item.Name
+            }).ToList();
+
+            productFromDtos.ProductTypes = Types;
+            productFromDtos.ProductBrand = Brands;
+
+            return View(productFromDtos);
         }
+        
+        [HttpPost]
+        public async  Task<IActionResult> AddProductComplete(ProductFromDtos productFromDtos)
+        {
+           
+            productFromDtos.ErrorMessages = Validate(productFromDtos);
+
+            if (productFromDtos.ErrorMessages.Count == 0)
+            {
+                var product = new Product
+                {
+                    Name = productFromDtos.Product.Name,
+                    Description = productFromDtos.Product.Description,
+                    PictureUrl = productFromDtos.Product.PictureUrl,
+                    Price = productFromDtos.Product.Price,
+                    ProductBrandId = productFromDtos.Product.ProductBrandId,
+                    ProductTypeId = productFromDtos.Product.ProductTypeId
+                };
+                await _productService.AddProductAsync(product);
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                TempData["ProductFormData"] = JsonConvert.SerializeObject(productFromDtos);
+                return RedirectToAction("AddProduct");
+            }
+        }
+
+        public List<string> Validate(ProductFromDtos productFromDtos)
+            {
+                List<string> errorMessages = new List<string>();
+
+                if (string.IsNullOrEmpty(productFromDtos.Product.Name))
+                {
+                    errorMessages.Add("Product name is required.");
+                }
+
+                if (string.IsNullOrEmpty(productFromDtos.Product.Description))
+                {
+                    errorMessages.Add("Product description is required.");
+                }
+
+                if (string.IsNullOrEmpty(productFromDtos.Product.PictureUrl))
+                {
+                    errorMessages.Add("Product picture URL is required.");
+                }
+
+                if (productFromDtos.Product.Price <= 0)
+                {
+                    errorMessages.Add("Product price must be greater than zero.");
+                }
+
+                if (productFromDtos.Product.ProductBrandId <= 0)
+                {
+                    errorMessages.Add("Product brand  is required.");
+                }
+
+                if (productFromDtos.Product.ProductTypeId <= 0)
+                {
+                    errorMessages.Add("Product type is required.");
+                }
+                return errorMessages;
+            }
+
     }
 }

@@ -15,6 +15,7 @@ namespace Infrastructure.Data
         public async Task AddBrandAsync(ProductBrand productBrand)
         {
             await _context.ProductBrand.AddAsync(productBrand);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteBrandAsync(int id)

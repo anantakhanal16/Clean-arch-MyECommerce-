@@ -3,7 +3,7 @@
 }
 
 
-
+@using Mye_CommerceApp.Dtos;
 
     <!-- Add Product Brand Button -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductBrandModal">
@@ -22,17 +22,25 @@
                 </div>
                 <div class="modal-body">
                     <!-- Product Brand Form -->
-                    <form id="productBrandForm">
-                        <div class="form-group">
-                            <label for="productBrandName">Product Brand Name</label>
-                            <input type="text" class="form-control" id="productBrandName" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add Product Brand</button>
-                    </form>
+
+
+                <form id="productBrandForm" method="post" action="/ProductBrand/AddProductBrandComplete">
+
+    <div class="form-group">
+        <label for="productBrandName">Product Brand Name</label>
+        <input type="text" class="form-control" id="productBrandName" name="brandName" required>
+    </div>
+    
+    @Html.AntiForgeryToken()
+
+    <button type="submit" class="btn btn-primary">Add Product Brand</button>
+</form>
+
                 </div>
             </div>
         </div>
     </div>
+ 
 
     <!-- Product Brand Table -->
     <div class="mt-4" id="productBrandPage">
@@ -40,11 +48,25 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">S.N</th>
                     <th scope="col">Product Brand Name</th>
                 </tr>
             </thead>
             <tbody id="productBrandTableBody">
-                <!-- Product Brand rows will be dynamically added here -->
+            @if (Model != null)
+            {
+                int count = 1;
+                @foreach (var products in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@products.Name</td>
+                    </tr>
+                    count++ ;
+                }
+                  
+            }
+            <!-- Product Brand rows will be dynamically added here -->
             </tbody>
         </table>
     </div>
@@ -94,7 +116,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         // Handle form submission for Product Brand
         document.getElementById('productBrandForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+            // event.preventDefault();
 
             // Get form values for Product Brand
             const productBrandName = document.getElementById('productBrandName').value;
@@ -103,9 +125,9 @@
             const productBrandTableBody = document.getElementById('productBrandTableBody');
             const newRow = productBrandTableBody.insertRow();
             newRow.innerHTML = `<td>${productBrandName}</td>`;
-
+           
             // Clear form values
-            document.getElementById('productBrandName').value = '';
+            // document.getElementById('productBrandName').value = '';
 
             // Close modal
             $('#addProductBrandModal').modal('hide');

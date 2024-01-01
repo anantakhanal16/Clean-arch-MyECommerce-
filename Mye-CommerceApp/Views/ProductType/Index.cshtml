@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "AdminLayout";
+}
+
+<!-- Similar structure as the Product Brand page -->
+<!-- Add Product Type Button -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addProductTypeModal">
+    Add Product Type
+</button>
+
+<!-- Add Product Type Modal -->
+<div class="modal fade" id="addProductTypeModal" tabindex="-1" role="dialog" aria-labelledby="addProductTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addProductTypeModalLabel">Add Product Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Product Type Form -->
+                <form id="productTypeForm" method="post" action="/ProductType/AddProductTypeComplete">
+                    <div class="form-group">
+                        <label for="productTypeName">Product Type Name</label>
+                        <input type="text" class="form-control" id="productTypeName" name="productType" required>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-primary">Add Product Type</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Product Type Table -->
+<div class="mt-4" id="productTypePage">
+    <h2>Product Type List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S.N</th>
+                <th scope="col">Product Type Name</th>
+            </tr>
+        </thead>
+        <tbody id="productTypeTableBody">
+            @if (Model != null)
+            {
+                int count = 1;
+                @foreach (var types in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@types.Name</td>
+                    </tr>
+                    count++;
+                }
+            }
+            <!-- Product Type rows will be dynamically added here -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Styles and scripts remain the same as the Product Brand page -->
+<style>
+    /* Styles for the Product Type page */
+    #productTypePage {
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+        #productTypePage .modal-content {
+            border-radius: 10px;
+        }
+
+    /* Add more styles as needed */
+
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Handle form submission for Product Type
+        document.getElementById('productTypeForm').addEventListener('submit', function (event) {
+            // event.preventDefault();
+
+            // Get form values for Product Type
+            const productTypeName = document.getElementById('productTypeName').value;
+
+            // Add product type to table
+            const productTypeTableBody = document.getElementById('productTypeTableBody');
+            const newRow = productTypeTableBody.insertRow();
+            newRow.innerHTML = `<td>${productTypeName}</td>`;
+
+            // Clear form values
+            // document.getElementById('productTypeName').value = '';
+
+            // Close modal
+            $('#addProductTypeModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        });
+    });
+</script>
+
+

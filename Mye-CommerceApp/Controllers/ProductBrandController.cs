@@ -1,7 +1,8 @@
 ﻿using Core.Entites;
+using Core.Implementation;
 using Core.Interface.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Mye_CommerceApp.Dtos;
 
 namespace Mye_CommerceApp.Controllers
 {
@@ -16,20 +17,25 @@ namespace Mye_CommerceApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var productBrand  = _productBrandService.GetProductsBrandAsync();
+            var productBrands = await _productBrandService.GetProductsBrandAsync();
 
-            return View(productBrand);
+            List<ProductBrandDto> model = productBrands.Select(item => new ProductBrandDto
+            {
+                Name = item.Name
+            }).ToList();
+
+            return View(model);
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var product = await _productBrandService.GetProductBrandById(id);
+
             if (product == null)
             {
                 return NotFound();
             }
-
             return View(product);
         }
 
@@ -40,15 +46,18 @@ namespace Mye_CommerceApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProductBrand(ProductBrand productBrand)
+       
+        public async Task<IActionResult> AddProductBrandComplete(string brandName)
         {
+            ProductBrand brand = new ProductBrand();
+            brand.Name= brandName;
             if (ModelState.IsValid)
             {
-                await _productBrandService.AddProductBrandAsync(productBrand);
-                return RedirectToAction(nameof(Index));
+                await _productBrandService.AddProductBrandAsync(brand);
+              
             }
 
-            return View(productBrand);
+            return RedirectToAction("Index");
         }
     }
 }

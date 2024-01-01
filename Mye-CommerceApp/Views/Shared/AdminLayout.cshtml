@@ -15,10 +15,14 @@
         }
 
         header {
+            position: fixed; /* Ensure the header is fixed at the top */
+            top: 0;
+            width: 100%;
             background: linear-gradient(to right, #d3d3d3, #f5f5f5);
             color: #333;
             padding: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
         .navbar {
@@ -59,6 +63,8 @@
 
         #wrapper {
             display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         #sidebar-wrapper {
@@ -103,7 +109,15 @@
         #page-content-wrapper {
             flex: 1;
             padding: 20px;
-            margin-left: 250px; 
+            margin-left: 250px;
+            margin-top: 70px; /* Adjust this value based on your header's height */
+        }
+
+        .container-fluid {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
         }
 
         #admin-content 
@@ -126,6 +140,14 @@
                 background-color: #0056b3;
                 border-color: #0056b3;
             }
+
+        .sidebar-heading {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff; /* Adjust the color as needed */
+            padding: 10px;
+            text-align: center;
+        }
     </style>
 
 
@@ -174,27 +196,31 @@
 
     <div id="wrapper">
         <div id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                Admin Eshop
+            </div>
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item">
+                <a href="/Product/AddProduct" class="list-group-item">
                     <i class="fas fa-plus-circle fa-lg mr-2 text-success"></i> Add Product
                 </a>
-                <a href="#" class="list-group-item">
+                <a href="/Product/Index" class="list-group-item">
                     <i class="fas fa-cube fa-lg mr-2 text-primary"></i> Product
                 </a>
                 <a href="/ProductBrand/Index" class="list-group-item">
                     <i class="fas fa-box-open fa-lg mr-2 text-warning"></i> Product Brand
                 </a>
-                <a href="#" class="list-group-item">
+                <a href="/ProductType/Index" class="list-group-item">
                     <i class="fas fa-tags fa-lg mr-2 text-info"></i> Product Type
                 </a>
             </div>
         </div>
         <div id="page-content-wrapper">
-            <div class="container-fluid" id="admin-content">
+            <div class="container-fluid ms-0 mt-4" id="admin-content">
                 @RenderBody()
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
