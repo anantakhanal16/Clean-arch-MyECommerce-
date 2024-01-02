@@ -1,10 +1,13 @@
-﻿namespace Mye_CommerceApp.Dtos
+﻿
+namespace Mye_CommerceApp.Dtos
 {
     public class ProductFromDtos
     {
         public List<ProductTypeDto> ProductTypes = new List<ProductTypeDto>();
+        
         public List<ProductBrandDto> ProductBrand = new List<ProductBrandDto>();
         public ProductForm Product { get; set; }
+
         public List<string> ErrorMessages = new List<string>();
     }
 
@@ -16,5 +19,6 @@
         public string PictureUrl { get; set; }
         public int ProductTypeId { get; set; }
         public int ProductBrandId { get; set; }
+        public IFormFile PictureFile { get; set; }
     }
 }

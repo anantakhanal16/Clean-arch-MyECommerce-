@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231227164020_InitialCreate")]
+    [Migration("20240102095032_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,10 @@ namespace Infrastructure.Data.Migrations
 
                     b.Property<int>("ProductBrandId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductTypeId")
                         .HasColumnType("int");

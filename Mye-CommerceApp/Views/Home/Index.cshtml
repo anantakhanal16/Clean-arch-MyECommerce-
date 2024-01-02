@@ -1,4 +1,5 @@
-﻿<style>
+﻿@model List<Mye_CommerceApp.Dtos.ProductListDto>
+<style>
     html, body {
         height: 100%;
         margin: 0;
@@ -17,7 +18,6 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         border-radius: 12px;
         padding: 30px;
-
         width: 100%;
         height: 100%;
         box-sizing: border-box;
@@ -29,59 +29,102 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 12px;
         margin-bottom: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
     }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .product-card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
 
     .product {
         display: flex;
-        flex-direction: column; /* Display products vertically */
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #e2e2e2;
+        flex-direction: column;
+        margin-bottom: 20px;
     }
 
         .product img {
-            width: 100px;
-            height: 100px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
             border-radius: 12px;
-            margin-bottom: 15px;
         }
 
     .product-details {
-        flex: 1;
+        padding: 20px;
     }
 
-    .product h3 {
+    .product h5 {
         color: #343a40;
-        font-size: 24px;
+        font-size: 20px;
         margin-bottom: 10px;
     }
 
     .product p {
         color: #6c757d;
-        font-size: 18px;
+        font-size: 16px;
         margin-bottom: 15px;
+    }
+
+    .btn-primary,
+    .btn-success {
+        font-size: 14px; /* Adjusted font size for smaller buttons */
+        padding: 8px 15px; /* Adjusted padding for more compact buttons */
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
 
     .btn-primary {
         background-color: #007bff;
         border-color: #007bff;
-        font-size: 18px;
-        padding: 12px 24px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
+        color: #ffffff;
+        margin-right: 8px;
     }
 
-        .btn-primary:hover {
+    .btn-success {
+
+        background-color: #28a745;
+        border-color: #28a745;
+        color: #ffffff;
+    }
+
+        .btn-primary:hover,
+        .btn-success:hover {
             background-color: #0056b3;
             border-color: #0056b3;
+            transform: translateY(-3px);
         }
 </style>
+
+
+<script>
+    function TruncateDescription(description, maxWords) {
+        var words = description.split(' ');
+        if (words.length > maxWords) {
+            return words.slice(0, maxWords).join(' ') + '...'; // Truncate and add ellipsis
+        } else {
+            return description;
+        }
+    }
+</script>
 
 <div class="container">
     <div class="row">
         <!-- Filter Area -->
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-primary">Filters</h2>
@@ -98,43 +141,45 @@
         </div>
 
         <!-- Products Area -->
-        <div class="col-lg-9">
+        <div class="col-lg-10">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-primary mb-4">Featured Products</h2>
                     <div class="row d-flex">
                         <!-- Repeat the product structure using a loop -->
-                       
-                        <div class="col-md-4 mb-4">
-                            <div class="card product-card">
-                                <img src="https://source.unsplash.com/400x300/?product" class="card-img-top" alt="Product <?php echo $i; ?> Image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product </h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <button class="btn btn-primary">Add to Cart</button>
+                        @if (Model != null)
+                        {
+                            @foreach (var product in Model)
+                            {
+
+                                <!-- Inside the product card loop -->
+                                <div class="col-md-3 mb-4">
+                                    <div class="card product-card">
+                                        <img src="@Url.Content($"~/uploads/{product.PictureUrl}")" class="card-img-top" alt="Product Image">
+                                        <div class="card-body product-details">
+                                            <h5 class="card-title">@product.Name</h5>
+                                            <p class="card-text" id="productDescription">@product.Description</p>
+                                            <p class="card-text" id="productPrice">@product.Price</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <button class="btn btn-primary mr-2">Add to Cart</button>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-success">Buy Now</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card product-card">
-                                <img src="https://source.unsplash.com/400x300/?product" class="card-img-top" alt="Product <?php echo $i; ?> Image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product </h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <button class="btn btn-primary">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card product-card">
-                                <img src="https://source.unsplash.com/400x300/?product" class="card-img-top" alt="Product <?php echo $i; ?> Image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Product </h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    <button class="btn btn-primary">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
+
+                                    <script>
+                                        // Truncate the description after the page has loaded
+                                        document.getElementById("productDescription").innerText = truncateDescription("@product.Description", 20);
+                                    </script>
+                              
+                             
+                            }
+                        }
                     
                     </div>
                 </div>
@@ -143,3 +188,5 @@
 
     </div>
 </div>
+
+

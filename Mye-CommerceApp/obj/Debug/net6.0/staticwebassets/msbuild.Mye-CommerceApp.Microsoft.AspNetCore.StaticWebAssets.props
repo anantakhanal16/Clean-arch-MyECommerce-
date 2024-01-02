@@ -992,5 +992,37 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Mye-CommerceApp.bundle.scp.css))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\dab73d2f-bc34-4b97-b6f1-3c6acdb5aa7d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>Mye-CommerceApp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Mye-CommerceApp</BasePath>
+      <RelativePath>Uploads/dab73d2f-bc34-4b97-b6f1-3c6acdb5aa7d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\dab73d2f-bc34-4b97-b6f1-3c6acdb5aa7d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>Mye-CommerceApp</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/Mye-CommerceApp</BasePath>
+      <RelativePath>Uploads/f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\Uploads\f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
   </ItemGroup>
 </Project>

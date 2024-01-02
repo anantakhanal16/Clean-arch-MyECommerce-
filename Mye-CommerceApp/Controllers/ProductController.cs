@@ -1,4 +1,5 @@
 ﻿using Core.Entites;
+using Core.Interface.Repositories;
 using Core.Interface.Services;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
@@ -11,12 +12,14 @@ namespace Mye_CommerceApp.Controllers
         private readonly IProductService _productService;
         private readonly IProductBrandService _productBrandService;
         private readonly IProductTypeService _productType;
+        private readonly IImageUploadRepository _imageService;
 
-        public ProductController(IProductService productService, IProductBrandService productBrandService, IProductTypeService productType)
+        public ProductController(IProductService productService, IProductBrandService productBrandService, IProductTypeService productType, IImageUploadRepository imageService)
         {
             _productService = productService;
             _productBrandService = productBrandService;
             _productType = productType;
+            _imageService = imageService;
         }
 
         public async Task<IActionResult> Index()
@@ -92,16 +95,20 @@ namespace Mye_CommerceApp.Controllers
            
             productFromDtos.ErrorMessages = Validate(productFromDtos);
 
+            string imageUrl = await _imageService.UploadImageAsync(productFromDtos.Product.PictureFile);
+
             if (productFromDtos.ErrorMessages.Count == 0)
             {
                 var product = new Product
                 {
                     Name = productFromDtos.Product.Name,
                     Description = productFromDtos.Product.Description,
-                    PictureUrl = productFromDtos.Product.PictureUrl,
+                    PictureUrl = imageUrl,
                     Price = productFromDtos.Product.Price,
                     ProductBrandId = productFromDtos.Product.ProductBrandId,
-                    ProductTypeId = productFromDtos.Product.ProductTypeId
+                    ProductTypeId = productFromDtos.Product.ProductTypeId,
+                    ProductImageName = productFromDtos.Product.PictureFile.Name,
+
                 };
                 await _productService.AddProductAsync(product);
                 return RedirectToAction("Index");

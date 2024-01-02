@@ -16,6 +16,7 @@
     </div>
 }
 <h1 class="mt-4">Add Product Page</h1>
+
 <div class="container mt-4">
     <form method="post" action="/Product/AddProductComplete" enctype="multipart/form-data">
         <div class="row">
@@ -39,14 +40,16 @@
                 <div class="form-group">
                     <label asp-for="Product.PictureUrl">Product Picture URL</label>
                     <input asp-for="Product.PictureUrl" class="form-control" placeholder="Enter product picture URL" />
-
+                    <div class="text-end">
+                        <label asp-for="Product.PictureFile">Upload Picture:</label>
+                        <input type="file" name="Product.PictureFile" id="pictureFile" class="form-control" />
+                    </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Product.ProductTypeId">Product Type</label>
                     <select asp-for="Product.ProductTypeId" asp-items="Model.ProductTypes.Select(type => new SelectListItem(type.Name, type.Id.ToString()))" class="form-control">
                         <option value="">Please select a Product Type</option>
                     </select>
-
                 </div>
 
                 <div class="form-group">

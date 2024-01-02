@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vJiZnbqGbLJ54WaTh8T8wIfJU5Q4VGA8Isw+I8AZ7XU=",
+  "Hash": "pxDFHkJIlqygzq+PwsxesL6nFVk+uqxLjkJD7N/TBL4=",
   "Source": "Mye-CommerceApp",
   "BasePath": "_content/Mye-CommerceApp",
   "Mode": "Default",
@@ -1086,6 +1086,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\Uploads\\dab73d2f-bc34-4b97-b6f1-3c6acdb5aa7d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg",
+      "SourceId": "Mye-CommerceApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\",
+      "BasePath": "_content/Mye-CommerceApp",
+      "RelativePath": "Uploads/dab73d2f-bc34-4b97-b6f1-3c6acdb5aa7d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\dab73d2f-bc34-4b97-b6f1-3c6acdb5aa7d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\Uploads\\f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg",
+      "SourceId": "Mye-CommerceApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\",
+      "BasePath": "_content/Mye-CommerceApp",
+      "RelativePath": "Uploads/f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg"
     }
   ]
 }

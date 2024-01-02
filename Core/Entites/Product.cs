@@ -20,5 +20,7 @@ namespace Core.Entites
         public ProductBrand ProductBrand { get; set; }
 
         public int ProductBrandId { get; set; }
+
+        public string ProductImageName { get; set; }
     }
 }

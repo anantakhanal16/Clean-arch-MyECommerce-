@@ -47,6 +47,10 @@ namespace Infrastructure.Data.Migrations
                     b.Property<int>("ProductBrandId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ProductImageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
