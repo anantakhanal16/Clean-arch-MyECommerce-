@@ -47,10 +47,10 @@ namespace Mye_CommerceApp.Controllers
             return View(newproducts);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(int id)
-        {
+        public async Task<IActionResult> ProductDetails(int id)
+        {   
             var product = await _productService.GetProductById(id);
+
             if (product == null)
             {
                 return NotFound();

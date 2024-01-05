@@ -1,16 +1,9 @@
 ﻿@model List<Mye_CommerceApp.Dtos.ProductListDto>
-<style>
-    html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
 
+<style>
     body {
-        background-color: #f8f9fa;
+        background-color: #f4f4f4;
         font-family: 'Arial', sans-serif;
-        display: flex;
-        flex-direction: column;
     }
 
     .container {
@@ -59,7 +52,7 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            border-radius: 12px;
+            border-radius: 12px 12px 0 0;
         }
 
     .product-details {
@@ -67,47 +60,117 @@
     }
 
     .product h5 {
-        color: #343a40;
+        color: #333;
         font-size: 20px;
         margin-bottom: 10px;
     }
 
     .product p {
-        color: #6c757d;
+        color: #666;
         font-size: 16px;
         margin-bottom: 15px;
     }
 
     .btn-primary,
     .btn-success {
-        font-size: 14px; /* Adjusted font size for smaller buttons */
-        padding: 8px 15px; /* Adjusted padding for more compact buttons */
+        font-size: 14px;
+        padding: 8px 15px;
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
     }
 
     .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
+        background-color: #4285f4;
+        border-color: #4285f4;
         color: #ffffff;
         margin-right: 8px;
     }
 
     .btn-success {
-
-        background-color: #28a745;
-        border-color: #28a745;
+        background-color: #0f9d58;
+        border-color: #0f9d58;
         color: #ffffff;
     }
 
         .btn-primary:hover,
         .btn-success:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+            background-color: #3367d6;
+            border-color: #3367d6;
             transform: translateY(-3px);
         }
+
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .form-range {
+        width: 100%;
+    }
+
+    .rating {
+        display: flex;
+        justify-content: center;
+        direction: rtl; /* Set the direction to right-to-left */
+    }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            cursor: pointer;
+            width: 25px;
+            height: 25px;
+            margin: 0 2px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            position: relative;
+        }
+
+            .rating label:before {
+                content: '\2605'; /* Unicode character for a star */
+                font-size: 20px;
+                color: #ddd;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            .rating input:checked ~ label:before,
+            .rating label:hover:before {
+                opacity: 1;
+                color: #ffc107;
+            }
 </style>
+
+
+
 
 
 <script>
@@ -128,17 +191,60 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title text-primary">Filters</h2>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="filterOption1">
-                        <label class="form-check-label" for="filterOption1">Filter Option 1</label>
+
+                    <!-- Product Type Dropdown -->
+                    <div class="form-group">
+                        <label for="productType">Product Type</label>
+                        <select class="form-control" id="productType">
+                            <option value="0">Select Product Type</option>
+                            <option value="1">Electronics</option>
+                            <option value="2">Clothing</option>
+                            <option value="3">Home Appliances</option>
+                            <!-- Add more options as needed -->
+                        </select>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="filterOption2">
-                        <label class="form-check-label" for="filterOption2">Filter Option 2</label>
+
+                    <!-- Product Brand Dropdown -->
+                    <div class="form-group">
+                        <label for="productBrand">Product Brand</label>
+                        <select class="form-control" id="productBrand">
+                            <option value="0">Select Product Brand</option>
+                            <option value="1">Sony</option>
+                            <option value="2">Nike</option>
+                            <option value="3">Samsung</option>
+                            <!-- Add more options as needed -->
+                        </select>
                     </div>
+
+                    <!-- Price Range Slider -->
+                    <div class="form-group">
+                        <label for="priceRange">Price Range</label>
+                        <input type="range" class="form-range" id="priceRange" min="0" max="1000">
+                        <p>Min Price: <span id="minPrice">0</span></p>
+                        <p>Max Price: <span id="maxPrice">1000</span></p>
+                    </div>
+
+                    <!-- Ratings Star Rating -->
+                    <div class="form-group">
+                        <label for="ratings">Ratings</label>
+                        <div class="rating">
+                            <input type="radio" name="ratings" id="star5" value="5">
+                            <label for="star5"></label>
+                            <input type="radio" name="ratings" id="star4" value="4">
+                            <label for="star4"></label>
+                            <input type="radio" name="ratings" id="star3" value="3">
+                            <label for="star3"></label>
+                            <input type="radio" name="ratings" id="star2" value="2">
+                            <label for="star2"></label>
+                            <input type="radio" name="ratings" id="star1" value="1">
+                            <label for="star1"></label>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
+
 
         <!-- Products Area -->
         <div class="col-lg-10">
@@ -154,6 +260,7 @@
 
                                 <!-- Inside the product card loop -->
                                 <div class="col-md-3 mb-4">
+                                    <a href="@Url.Action("ProductDetails", "Product", new { id = product.Id})" class="product-link text-decoration-none">
                                     <div class="card product-card">
                                         <img src="@Url.Content($"~/uploads/{product.PictureUrl}")" class="card-img-top" alt="Product Image">
                                         <div class="card-body product-details">
@@ -170,14 +277,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    </a>
                                 </div>
-
-                                    <script>
-                                        // Truncate the description after the page has loaded
-                                        document.getElementById("productDescription").innerText = truncateDescription("@product.Description", 20);
-                                    </script>
-                              
-                             
+                            
+                               <script>
+                                   // Truncate the description after the page has loaded
+                                   document.getElementById("productDescription").innerText = truncateDescription("@product.Description", 20);
+                               </script>
                             }
                         }
                     

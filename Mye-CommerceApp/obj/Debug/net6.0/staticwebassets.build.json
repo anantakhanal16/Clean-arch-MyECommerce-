@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pxDFHkJIlqygzq+PwsxesL6nFVk+uqxLjkJD7N/TBL4=",
+  "Hash": "v1R2J1v4JER44GpA0G1YdfPtnUwTDvMCxCBoM8K1j+4=",
   "Source": "Mye-CommerceApp",
   "BasePath": "_content/Mye-CommerceApp",
   "Mode": "Default",
@@ -1105,6 +1105,23 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\dab73d2f-bc34-4b97-b6f1-3c6acdb5aa7d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg"
     },
     {
+      "Identity": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\Uploads\\e5601f10-8791-4497-94ff-42818e2028e3__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg",
+      "SourceId": "Mye-CommerceApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\",
+      "BasePath": "_content/Mye-CommerceApp",
+      "RelativePath": "Uploads/e5601f10-8791-4497-94ff-42818e2028e3__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\e5601f10-8791-4497-94ff-42818e2028e3__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg"
+    },
+    {
       "Identity": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\Uploads\\f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg",
       "SourceId": "Mye-CommerceApp",
       "SourceType": "Discovered",
@@ -1120,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\f2b12494-544e-4f22-97b7-b43c1c227f9d__3b75cd10-c3a6-4372-8233-8c6b8654ef15.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\Uploads\\product.jpeg",
+      "SourceId": "Mye-CommerceApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\wwwroot\\",
+      "BasePath": "_content/Mye-CommerceApp",
+      "RelativePath": "Uploads/product.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\product.jpeg"
     }
   ]
 }
