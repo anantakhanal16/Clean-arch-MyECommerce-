@@ -36,8 +36,6 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
 
-
-
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -54,6 +52,7 @@ using (var scope = app.Services.CreateScope())
 
         var context = services.GetRequiredService<ApplicationDbContext>();
         context.Database.Migrate();
+    
     }
     catch (Exception ex)
     {

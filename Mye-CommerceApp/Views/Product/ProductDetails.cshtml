@@ -51,6 +51,18 @@
         transition: background-color 0.3s ease-in-out;
     }
 
+    #add-to-cart {
+        background-color: dodgerblue;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+
         #buy-now-btn:hover {
             background-color: #45a049;
         }
@@ -76,12 +88,14 @@
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-secondary quantity-control-btn" type="button" id="quantity-minus">-</button>
                     </div>
-                    <input type="text" class="form-control quantity-input" value="1" id="quantity" readonly>
+                    <input type="text" class="form-control quantity-input" name="quantity" value="1" id="quantity" readonly>
+                    <input type="hidden" name="quantity" id="hiddenQuantity" value="1">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary quantity-control-btn" type="button" id="quantity-plus">+</button>
                     </div>
                 </div>
                 <button class="btn btn-success mt-3" id="buy-now-btn">Buy Now</button>
+                <a class="btn btn-primary mt-3" id="add-to-cart" href="/Cart/AddToCart/@Model.Id">Add to Cart</a>
                 <!-- Add to Cart button can be added similarly -->
             </div>
         </div>

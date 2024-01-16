@@ -1,6 +1,7 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
 using Core.Interface.Services;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 using Newtonsoft.Json;
@@ -9,12 +10,12 @@ namespace Mye_CommerceApp.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductService _productService;
-        private readonly IProductBrandService _productBrandService;
-        private readonly IProductTypeService _productType;
+        private readonly IProductRepository _productService;
+        private readonly IProductBrandRepository _productBrandService;
+        private readonly IProductTypeRepository _productType;
         private readonly IImageUploadRepository _imageService;
 
-        public ProductController(IProductService productService, IProductBrandService productBrandService, IProductTypeService productType, IImageUploadRepository imageService)
+        public ProductController(IProductRepository productService, IProductBrandRepository productBrandService, IProductTypeRepository productType, IImageUploadRepository imageService)
         {
             _productService = productService;
             _productBrandService = productBrandService;
@@ -70,13 +71,16 @@ namespace Mye_CommerceApp.Controllers
                 productFromDtos = JsonConvert.DeserializeObject<ProductFromDtos>(serializedData) ?? new ProductFromDtos();
             }
 
-            var productType = await _productType.GetProductsTypeAsync();
-            var productBrand = await _productBrandService.GetProductsBrandAsync();
+            var productType = await _productType.GetProductTypesAsync();
+
+            var productBrand = await _productBrandService.GetBrandsAsync();
+
             List<ProductTypeDto> Types = productType.Select(item => new ProductTypeDto
             {
                 Id = item.Id,
                 Name = item.Name
             }).ToList();
+
             List<ProductBrandDto> Brands = productBrand.Select(item => new ProductBrandDto
             {
                 Id = item.Id,
