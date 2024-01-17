@@ -4,7 +4,7 @@ namespace Core.Interface.Repositories
 {
     public interface ICartRepository
     {
-        Task<Cart> GetCartAsync();
+        Task<IEnumerable<Cart>> GetCartAsync();
         Task<Cart> GetCartItemByIdAsync(int id);
         Task AddProductToCartAsync(Cart productDetail);
         Task RemoveCartItemAsync(int id);

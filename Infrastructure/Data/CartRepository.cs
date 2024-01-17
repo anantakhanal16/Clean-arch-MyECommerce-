@@ -1,5 +1,6 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
@@ -12,9 +13,10 @@ namespace Infrastructure.Data
             _context = context;
         }
 
-        public Task AddProductToCartAsync(Cart productDetail)
+        public async Task AddProductToCartAsync(Cart productDetail)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(productDetail);
+            _context.SaveChanges();
         }
 
         public Task ClearCartAsync()
@@ -22,9 +24,15 @@ namespace Infrastructure.Data
             throw new NotImplementedException();
         }
 
-        public Task<Cart> GetCartAsync()
+        public async Task<IEnumerable<Cart>> GetCartAsync()
         {
-            throw new NotImplementedException();
+            var cartDetail= await _context.Cart
+                  .Include(p => p.Product)
+                  .Include(p => p.ProductType)
+                  .Include(p => p.ProductBrand)
+                .ToListAsync();
+            return cartDetail;
+           
         }
 
         public Task<Cart> GetCartItemByIdAsync(int id)
