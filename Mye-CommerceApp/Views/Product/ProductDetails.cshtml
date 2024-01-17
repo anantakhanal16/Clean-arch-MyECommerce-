@@ -9,7 +9,6 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-in-out;
     }
-
         .product-image:hover {
             transform: scale(1.05);
         }
@@ -62,7 +61,6 @@
         transition: background-color 0.3s ease-in-out;
     }
 
-
         #buy-now-btn:hover {
             background-color: #45a049;
         }
@@ -75,34 +73,32 @@
             <img src="@Url.Content($"~/uploads/{@Model.PictureUrl}")" alt="Product Image" class="product-image img-fluid rounded">
         </div>
         <div class="col-md-6">
-            <!-- Product Details -->
-            <div class="product-details">
-                <h2>@Model.Name</h2>
-                <p class="price">$@Model.Price</p>
-                <p class="description">@Model.Description</p>
-                <p>Brand: @Model.ProductBrand.Name</p>
-                <p>Type: @Model.ProductType.Name</p>
-
-                <!-- Quantity input and Buy Now button -->
-                <div class="input-group mt-3" style="width: 100px;">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary quantity-control-btn" type="button" id="quantity-minus">-</button>
+            <form id="productForm" method="post">
+                <div class="product-details">
+                    <h2>@Model.Name</h2>
+                    <p class="price">$@Model.Price</p>
+                    <p class="description">@Model.Description</p>
+                    <p>Brand: @Model.ProductBrand.Name</p>
+                    <p>Type: @Model.ProductType.Name</p>
+                    <div class="input-group mt-3" style="width: 100px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary quantity-control-btn" type="button" id="quantity-minus">-</button>
+                        </div>
+                        <input type="text" class="form-control quantity-input" name="quantity" value="1" id="quantity" readonly>
+                        <input type="hidden" name="quantity" id="hiddenQuantity" value="1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary quantity-control-btn" type="button" id="quantity-plus">+</button>
+                        </div>
                     </div>
-                    <input type="text" class="form-control quantity-input" name="quantity" value="1" id="quantity" readonly>
-                    <input type="hidden" name="quantity" id="hiddenQuantity" value="1">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary quantity-control-btn" type="button" id="quantity-plus">+</button>
-                    </div>
+                    <input type="hidden" value="@Model.Id" id="productId">
+                    <input type="submit" class=" mt-3" name="action" id="add-to-cart" value="AddToCart" />
+                    <input type="submit" class=" mt-3" name="action" id="buy-now-btn" value="BuyNow" />
                 </div>
-                <button class="btn btn-success mt-3" id="buy-now-btn">Buy Now</button>
-                <a class="btn btn-primary mt-3" id="add-to-cart" href="/Cart/AddToCart/@Model.Id">Add to Cart</a>
-                <!-- Add to Cart button can be added similarly -->
-            </div>
+          </form>
+            
         </div>
     </div>
 </div>
-
-<!-- Bootstrap JS and Popper.js scripts -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -114,7 +110,7 @@
         crossorigin="anonymous"></script>
 
 <script>
-    // Add quantity increment and decrement functionality
+  
     $(document).ready(function () {
         $("#quantity-minus").click(function () {
             updateQuantity(-1);
@@ -133,9 +129,39 @@
                 quantityInput.val(newQuantity);
             }
         }
+
+        $("#buy-now-btn").click(function () {
+            var quantity = $("#quantity").val();
+            alert("Buy Now clicked with quantity: " + quantity);
+        });
+
+        document.getElementById("productForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var action = event.submitter.value;
+            var quantity = $("#quantity").val();
+            var productId = $("#productId").val();
+            var actionUrl;
+
+            if (action === "AddToCart") {
+                actionUrl = "/Cart/AddToCart";
+            } else if (action === "BuyNow") {
+                actionUrl = "/Checkout/BuyNow";
+            }
+            debugger;
+            $.ajax({
+                url: actionUrl,
+                method: "POST",
+                data: { quantity, productId },
+                success: function () {
+                    debugger;
+                    alert("Item Added to the Cart");
+                },
+                error: function (error) {
+                      alert("error");
+                }
+            });
+        });
     });
-    $("#buy-now-btn").click(function () {
-        var quantity = $("#quantity").val();
-        alert("Buy Now clicked with quantity: " + quantity);
-    });
+
+
 </script>

@@ -17,9 +17,14 @@ namespace Infrastructure.Infra.Dependencies
             });
 
             services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
+            
             services.AddScoped<IProductBrandRepository, ProductBrandRepository>();
+            
             services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddScoped<IImageUploadRepository, ImageUploadRepository>();
+
+            services.AddScoped<ICartRepository, CartRepository>();
 
             return services;
         }

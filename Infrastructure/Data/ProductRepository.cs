@@ -15,7 +15,7 @@ namespace Infrastructure.Data
         public async Task AddProductAsync(Product product)
         {
              await _context.Products.AddAsync(product);
-            await _context.SaveChangesAsync();
+             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteProductAsync(int id)
@@ -29,10 +29,12 @@ namespace Infrastructure.Data
 
         public async Task<Product> GetProductById(int id)
         {
-            return await _context.Products
+            var productDetail = await _context.Products
              .Include(p => p.ProductType)
              .Include(p => p.ProductBrand)
              .FirstOrDefaultAsync(p => p.Id == id);
+            return productDetail;
+
         }
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
