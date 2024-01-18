@@ -1,6 +1,5 @@
 ﻿using Core.Entites;
-using Core.Implementation;
-using Core.Interface.Services;
+using Core.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 
@@ -8,16 +7,16 @@ namespace Mye_CommerceApp.Controllers
 {
     public class ProductBrandController : Controller
     {
-        private readonly IProductBrandService _productBrandService;
+        private readonly IProductBrandRepository _productBrandrepo;
 
-        public ProductBrandController(IProductBrandService productBrandService)
+        public ProductBrandController(IProductBrandRepository productBrandRepo)
         {
-            _productBrandService = productBrandService;
+            _productBrandrepo = productBrandRepo;
         }
 
         public async Task<IActionResult> Index()
         {
-            var productBrands = await _productBrandService.GetProductsBrandAsync();
+            var productBrands = await _productBrandrepo.GetBrandsAsync();
 
             List<ProductBrandDto> model = productBrands.Select(item => new ProductBrandDto
             {
@@ -30,7 +29,7 @@ namespace Mye_CommerceApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var product = await _productBrandService.GetProductBrandById(id);
+            var product = await _productBrandrepo.GetBrandByIdAsync(id);
 
             if (product == null)
             {
@@ -53,7 +52,7 @@ namespace Mye_CommerceApp.Controllers
             brand.Name= brandName;
             if (ModelState.IsValid)
             {
-                await _productBrandService.AddProductBrandAsync(brand);
+                await _productBrandrepo.AddBrandAsync(brand);
               
             }
 

@@ -69,3 +69,5 @@ C:\Users\saruk\Desktop\Database design\Clean-arch-MyECommerce-\Mye-CommerceApp\o
 C:\Users\saruk\Desktop\Database design\Clean-arch-MyECommerce-\Mye-CommerceApp\obj\Debug\net6.0\Mye-CommerceApp.pdb
 C:\Users\saruk\Desktop\Database design\Clean-arch-MyECommerce-\Mye-CommerceApp\obj\Debug\net6.0\Mye-CommerceApp.genruntimeconfig.cache
 C:\Users\saruk\Desktop\Database design\Clean-arch-MyECommerce-\Mye-CommerceApp\obj\Debug\net6.0\ref\Mye-CommerceApp.dll
+C:\Users\saruk\Desktop\Database design\Clean-arch-MyECommerce-\Mye-CommerceApp\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\saruk\Desktop\Database design\Clean-arch-MyECommerce-\Mye-CommerceApp\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

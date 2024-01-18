@@ -1,7 +1,5 @@
-using Core.Implementation;
-using Core.Interface.Services;
-using Core.Servicesdependencies;
 using Infrastructure;
+using Infrastructure.Identity;
 using Infrastructure.Infra.Dependencies;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.CoreServices();
+
 
 builder.Services.InfraServices(builder.Configuration);
 
@@ -27,6 +25,7 @@ if (!app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -35,8 +34,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-
-    endpoints.MapControllerRoute(
+        endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 });
@@ -51,6 +49,13 @@ using (var scope = app.Services.CreateScope())
     {
 
         var context = services.GetRequiredService<ApplicationDbContext>();
+        
+        var Identitycontext = services.GetRequiredService<AppIdentityDbcontext>();
+        
+        //var userManger = services.GetRequiredService<UserManager<AppUser>>();
+
+        Identitycontext.Database.Migrate();
+
         context.Database.Migrate();
     
     }

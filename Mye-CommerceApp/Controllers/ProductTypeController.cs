@@ -1,5 +1,5 @@
 ﻿using Core.Entites;
-using Core.Interface.Services;
+using Core.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 
@@ -7,16 +7,16 @@ namespace Mye_CommerceApp.Controllers
 {
     public class ProductTypeController : Controller
     {
-        private readonly IProductTypeService _productType;
+        private readonly IProductTypeRepository _productTypeRepo;
 
-        public ProductTypeController(IProductTypeService productType)
+        public ProductTypeController(IProductTypeRepository productTypeRepo)
         {
-            _productType = productType;
+            _productTypeRepo = productTypeRepo;
         }
 
         public async Task<IActionResult> Index()
         {
-            var productType = await _productType.GetProductsTypeAsync();
+            var productType = await _productTypeRepo.GetProductTypesAsync();
 
             List<ProductTypeDto> model = productType.Select(item => new ProductTypeDto
             {
@@ -36,13 +36,13 @@ namespace Mye_CommerceApp.Controllers
             ProductType type = new ProductType();
             type.Name = productType;
 
-            await _productType.AddProductTypeAsync(type);
+            await _productTypeRepo.AddProductTypeAsync(type);
            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> DeleteProductType(int id)
         {
-            await _productType.DeleteProductTypeAsync(id);
+            await _productTypeRepo.DeleteProductTypeAsync(id);
             return RedirectToAction("Index");
         }
 

@@ -1,5 +1,5 @@
 ﻿using Core.Entites;
-using Core.Interface.Services;
+using Core.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 using Mye_CommerceApp.Models;
@@ -10,9 +10,9 @@ namespace Mye_CommerceApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IProductService _productService;
+        private readonly IProductRepository _productService;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        public HomeController(ILogger<HomeController> logger, IProductRepository productService)
         {
             _logger = logger;
             _productService = productService;

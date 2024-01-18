@@ -1,5 +1,8 @@
-﻿using Core.Interface.Repositories;
+﻿using Core.Entites.Identity;
+using Core.Interface.Repositories;
 using Infrastructure.Data;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +28,22 @@ namespace Infrastructure.Infra.Dependencies
             services.AddScoped<IImageUploadRepository, ImageUploadRepository>();
 
             services.AddScoped<ICartRepository, CartRepository>();
+
+            services.AddDbContext<AppIdentityDbcontext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"));
+            });
+
+           
+            services.AddIdentity<AppUser, IdentityRole>()
+           
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           
+           .AddSignInManager<SignInManager<AppUser>>()
+           
+           .AddDefaultTokenProviders();
+            
+            services.AddAuthentication();
 
             return services;
         }

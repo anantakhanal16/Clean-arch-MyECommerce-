@@ -1,7 +1,5 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
-using Core.Interface.Services;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 using Newtonsoft.Json;
