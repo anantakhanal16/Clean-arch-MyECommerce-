@@ -152,9 +152,14 @@
                 url: actionUrl,
                 method: "POST",
                 data: { quantity, productId },
-                success: function () {
+                success: function (response) {
                     debugger;
-                    alert("Item Added to the Cart");
+                    if (response.success) {
+                      alert("Item has been added to cart ")
+                    } else 
+                    {
+                        window.location.href = '/Account/Login';
+                    }
                 },
                 error: function (error) {
                       alert("error");

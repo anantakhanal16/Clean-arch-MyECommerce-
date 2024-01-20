@@ -1,11 +1,14 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 using Newtonsoft.Json;
 
 namespace Mye_CommerceApp.Controllers
 {
+    //[Authorize(Roles ="Admin")]
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productService;
@@ -56,7 +59,9 @@ namespace Mye_CommerceApp.Controllers
             }
             return View(product);
         }
-        
+
+
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> AddProduct()
         {

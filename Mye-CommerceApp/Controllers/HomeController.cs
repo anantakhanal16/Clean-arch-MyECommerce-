@@ -10,6 +10,7 @@ namespace Mye_CommerceApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
         private readonly IProductRepository _productService;
 
         public HomeController(ILogger<HomeController> logger, IProductRepository productService)
@@ -40,6 +41,17 @@ namespace Mye_CommerceApp.Controllers
                 newproducts.Add(productDto);
             }
             return View(newproducts);
+        }
+
+        public async Task<IActionResult> ProductDetails(int id)
+        {
+            var product = await _productService.GetProductById(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         public IActionResult Privacy()

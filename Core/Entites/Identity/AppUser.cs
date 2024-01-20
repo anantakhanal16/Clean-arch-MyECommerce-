@@ -5,8 +5,8 @@ namespace Core.Entites.Identity
 {
     public  class AppUser : IdentityUser
     {
-        public string DisplayName { get; set; }
-        
+        public string Name { get; set; }
+        public string? ProfilePicture { get; set; }
         public Address Address { get; set; }
     }
 }

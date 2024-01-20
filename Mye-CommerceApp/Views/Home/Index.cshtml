@@ -256,11 +256,10 @@
                         @if (Model != null)
                         {
                             @foreach (var product in Model)
-                            {
-
+                                {
                                 <!-- Inside the product card loop -->
                                 <div class="col-md-3 mb-4">
-                                    <a href="@Url.Action("ProductDetails", "Product", new { id = product.Id})" class="product-link text-decoration-none">
+                                    <a href="@Url.Action("ProductDetails", "Home", new { id = product.Id})" class="product-link text-decoration-none">
                                     <div class="card product-card">
                                         <img src="@Url.Content($"~/uploads/{product.PictureUrl}")" class="card-img-top" alt="Product Image">
                                         <div class="card-body product-details">
@@ -274,7 +273,6 @@
                                     </div>
                                     </a>
                                 </div>
-                            
                                <script>
                                    // Truncate the description after the page has loaded
                                    document.getElementById("productDescription").innerText = truncateDescription("@product.Description", 20);

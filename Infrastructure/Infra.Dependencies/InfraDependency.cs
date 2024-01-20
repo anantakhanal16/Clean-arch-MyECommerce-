@@ -2,6 +2,7 @@
 using Core.Interface.Repositories;
 using Infrastructure.Data;
 using Infrastructure.Identity;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,21 +30,29 @@ namespace Infrastructure.Infra.Dependencies
 
             services.AddScoped<ICartRepository, CartRepository>();
 
+            services.AddScoped<IAuthenticationService, UserAuthentication>();
+
             services.AddDbContext<AppIdentityDbcontext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"));
             });
 
-           
-            services.AddIdentity<AppUser, IdentityRole>()
-           
-           .AddEntityFrameworkStores<ApplicationDbContext>()
+
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+        
+            })
+
+           .AddEntityFrameworkStores<AppIdentityDbcontext>()
            
            .AddSignInManager<SignInManager<AppUser>>()
            
            .AddDefaultTokenProviders();
-            
-            services.AddAuthentication();
+
+            services.ConfigureApplicationCookie(op =>op.LoginPath = "/Account/Login");
 
             return services;
         }

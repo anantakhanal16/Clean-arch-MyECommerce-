@@ -1,10 +1,12 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 
 namespace Mye_CommerceApp.Controllers
 {
+   
     public class CartController : Controller
     {
         private readonly ICartRepository _cartService;
@@ -17,6 +19,7 @@ namespace Mye_CommerceApp.Controllers
             _productService = productService;
         }
 
+        [Authorize]
         public async Task<IActionResult> GetCart()
         {
             var cartDetail = await _cartService.GetCartAsync();
@@ -38,7 +41,9 @@ namespace Mye_CommerceApp.Controllers
 
         }
 
+
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddToCart(int quantity, int productId)
         {
                 Product productDetail = await _productService.GetProductById(productId);

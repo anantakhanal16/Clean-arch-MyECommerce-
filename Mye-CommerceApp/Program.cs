@@ -7,12 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-
-
 builder.Services.InfraServices(builder.Configuration);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +25,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCookiePolicy();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -52,8 +52,6 @@ using (var scope = app.Services.CreateScope())
         
         var Identitycontext = services.GetRequiredService<AppIdentityDbcontext>();
         
-        //var userManger = services.GetRequiredService<UserManager<AppUser>>();
-
         Identitycontext.Database.Migrate();
 
         context.Database.Migrate();

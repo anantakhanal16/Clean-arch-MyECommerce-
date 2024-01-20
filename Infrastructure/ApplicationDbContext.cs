@@ -1,5 +1,4 @@
-﻿
-using Core.Entites;
+﻿using Core.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
@@ -7,11 +6,10 @@ namespace Infrastructure
     public  class ApplicationDbContext: DbContext
     {
        
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
-
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
         public DbSet<ProductBrand> ProductBrand { get; set; }
