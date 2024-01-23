@@ -1,8 +1,10 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
+using System.Security.Claims;
 
 namespace Mye_CommerceApp.Controllers
 {
@@ -13,16 +15,21 @@ namespace Mye_CommerceApp.Controllers
 
         private readonly IProductRepository _productService;
 
-        public CartController(ICartRepository cartService, IProductRepository productService)
+        private readonly AppIdentityDbcontext _user;
+
+        public CartController(ICartRepository cartService, IProductRepository productService, AppIdentityDbcontext user)
         {
             _cartService = cartService;
             _productService = productService;
+            _user = user;
         }
 
         [Authorize]
         public async Task<IActionResult> GetCart()
         {
-            var cartDetail = await _cartService.GetCartAsync();
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var cartDetail = await _cartService.GetCartAsync(currentUserId);
 
             var cartDtos = cartDetail.Select(cart => new CartDto
             {
@@ -46,9 +53,11 @@ namespace Mye_CommerceApp.Controllers
         [Authorize]
         public async Task<IActionResult> AddToCart(int quantity, int productId)
         {
-                Product productDetail = await _productService.GetProductById(productId);
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                if (productDetail != null)
+            Product productDetail = await _productService.GetProductById(productId);
+           
+          if (productDetail != null)
                 {
                     Cart cartitemDetail = new Cart
                     {
@@ -57,13 +66,16 @@ namespace Mye_CommerceApp.Controllers
                         ProductId = productDetail.Id,
                         UnitPrice = productDetail.Price,
                         TotalPrice = productDetail.Price * quantity,
-                        Quantity = quantity
+                        Quantity = quantity,
+                        AppUserId = currentUserId
                     };
 
                     await _cartService.AddProductToCartAsync(cartitemDetail);
 
                     return Json(new { success = true, message = "Item added to the cart successfully" });
                 }
+            
+             
 
                 return Json(new { success = false, message = "Product not found" });
             }

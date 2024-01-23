@@ -1,4 +1,6 @@
-﻿namespace Core.Entites
+﻿using Core.Entites.Identity;
+
+namespace Core.Entites
 {
     public class Cart : BaseEntity
     {
@@ -11,5 +13,7 @@
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
+    
+        public string AppUserId { get; set; }
     }
 }

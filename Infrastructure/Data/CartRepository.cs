@@ -24,9 +24,10 @@ namespace Infrastructure.Data
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Cart>> GetCartAsync()
+        public async Task<IEnumerable<Cart>> GetCartAsync(string currentUserId)
         {
             var cartDetail= await _context.Cart
+                  .Where(c=> c.AppUserId == currentUserId)
                   .Include(p => p.Product)
                   .Include(p => p.ProductType)
                   .Include(p => p.ProductBrand)

@@ -41,8 +41,8 @@ namespace Infrastructure
                 .HasOne(c => c.ProductType)
                 .WithMany()
                 .HasForeignKey(c => c.ProductTypeId);
-
-
+        
+       
             base.OnModelCreating(modelBuilder);
         }
         
