@@ -1,0 +1,82 @@
+﻿@{
+    @model IEnumerable<Mye_CommerceApp.Dtos.OrderList>
+    var count = 0;
+}
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+
+        .order-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h2, h4, h5 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+
+    @foreach (var order in Model)
+    {
+        <div class="order-container ms-2 me-2 my-2">
+            <h4>Order Details</h4>
+            <p>Order Date: @order.DateTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+            <p>Shipping Address: @order.ShippingAddress</p>
+            <p>Total Amount: @order.TotalAmount.ToString("C")</p>
+            <h5>Order Items</h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderItem in order.OrderItems)
+                    {
+                        <tr>
+                            <td>@orderItem.ProductName</td>
+                            <td>@orderItem.Quantity</td>
+                            <td>@orderItem.UnitPrice.ToString("C")</td>
+                            <td>@orderItem.TotalPrice.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    <a asp-action="Index">Back to Orders</a>

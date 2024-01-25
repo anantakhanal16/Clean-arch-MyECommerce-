@@ -4,7 +4,6 @@ using Core.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 using System.Security.Claims;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Mye_CommerceApp.Controllers
@@ -28,42 +27,36 @@ namespace Mye_CommerceApp.Controllers
         [Authorize]
         public async Task<IActionResult> CheckoutComplete(OrderDto OrderDetails)
         {
-           
-            string UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             IEnumerable<Cart> Cart = await _cartRepository.GetCartItemByIdAsync(UserId);
-            
-            List<OrderItem> OrderItems = new List<OrderItem>();
 
             if (Cart != null)
             {
-                foreach (var cart in Cart)
+                List<OrderItem> OrderItems = Cart.Select(cart => new OrderItem
                 {
-                    OrderItem orderItem = new OrderItem();
-                    
-                    orderItem.ProductId = cart.ProductId;
-                    
-                    orderItem.Quantity = cart.Quantity;
+                    ProductId = cart.ProductId,
+                    Quantity = cart.Quantity,
+                    UnitPrice = cart.UnitPrice,
+                    TotalPrice = cart.Quantity * cart.UnitPrice
+                }).ToList();
 
-                    orderItem.UnitPrice = cart.UnitPrice;
+                decimal totalAmount = OrderItems.Sum(item => item.TotalPrice);
 
-                    orderItem.TotalPrice = cart.Quantity * cart.UnitPrice;
+                Order order = new Order
+                {
+                    ShippingAddress = OrderDetails.ShippingAddress,
+                    UserId = UserId,
+                    TotalAmount = totalAmount,
+                    OrderItems = OrderItems
+                };
+                await _orderRepository.SaveOrder(order);
 
-                    OrderItems.Add(orderItem);
-                }
-
-                Order order = new Order();
-
-                order.ShippingAddress = OrderDetails.ShippingAddress;
-                order.UserId = UserId;
-                order.TotalAmount = Cart.Sum(item => item.Quantity * item.UnitPrice);
-                order.OrderItems = OrderItems;
-                
-               await  _orderRepository.SaveOrder(order);
+                await _cartRepository.ClearCartAsync(UserId);
             }
-
             return View();
-            
         }
+
+
     }
 }

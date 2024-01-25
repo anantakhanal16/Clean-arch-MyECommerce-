@@ -19,22 +19,25 @@ namespace Infrastructure.Data
             _context.SaveChanges();
         }
 
-        public Task ClearCartAsync()
+        public async Task ClearCartAsync(string userId)
         {
-            throw new NotImplementedException();
+            var cartItems = await _context.Cart
+             .Where(c => c.AppUserId == userId)
+             .ToListAsync();
+
+             _context.Cart.RemoveRange(cartItems);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Cart>> GetCartAsync(string currentUserId)
         {
-            var cartDetail= await _context.Cart
+             var cartDetail = await _context.Cart
                   .Where(c=> c.AppUserId == currentUserId)
                   .Include(p => p.Product)
                   .Include(p => p.ProductType)
                   .Include(p => p.ProductBrand)
-                .ToListAsync();
-            
+                  .ToListAsync();
             return cartDetail;
-
         }
 
         public async Task<IEnumerable<Cart>> GetCartItemByIdAsync(string id)

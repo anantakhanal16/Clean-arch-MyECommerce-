@@ -9,6 +9,6 @@ namespace Core.Interface.Repositories
         Task AddProductToCartAsync(Cart productDetail);
         Task RemoveCartItemAsync(int id);
         Task UpdateCartItemAsync(Cart UpdatedproductDetail);
-        Task ClearCartAsync();
+        Task ClearCartAsync(string id);
     }
 }

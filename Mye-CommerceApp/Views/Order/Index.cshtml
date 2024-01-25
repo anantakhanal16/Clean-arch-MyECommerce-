@@ -1,0 +1,35 @@
+﻿@{
+    @model IEnumerable<Mye_CommerceApp.Dtos.OrderList>
+    var count = 0;
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Order Date</th>
+            <th>Shipping Address</th>
+            <th>Total Amount</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        @foreach (var order in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@order.DateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@order.ShippingAddress</td>
+                <td>@order.TotalAmount.ToString("C")</td>
+                <td>
+                    <a href="@Url.Action("OrderDetails", "Order", new { OrderId = order.OrderId })">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+

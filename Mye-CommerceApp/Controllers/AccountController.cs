@@ -1,9 +1,7 @@
 ﻿using Core.Entites.Identity;
 using Core.Interface.Repositories;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
-using System.Security.Claims;
 
 namespace Mye_CommerceApp.Controllers
 {
@@ -14,6 +12,7 @@ namespace Mye_CommerceApp.Controllers
         public AccountController( IAuthenticationService authService)
         {
             _authService = authService;
+
         }
 
         public ActionResult Index()
