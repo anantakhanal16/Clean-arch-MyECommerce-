@@ -1,0 +1,63 @@
+﻿
+/* Navbar styling */
+.navbar {
+    padding: 15px 30px;
+    background-color: #f8f9fa; /* Light background color */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    font-family: 'Roboto', sans-serif; /* Use Roboto font */
+}
+
+/* Brand styling */
+.navbar-brand {
+    margin-right: 20px;
+    font-size: 28px;
+    color: #343a40; /* Dark text color */
+}
+
+/* Navbar links styling */
+.navbar-nav .nav-link {
+    font-size: 18px;
+    color: #343a40; /* Dark text color */
+}
+
+/* Active link styling */
+.navbar-nav .nav-item.active .nav-link {
+    color: #007bff; /* Primary color for active link */
+}
+
+/* Search input styling */
+.form-inline .form-control {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da; /* Light border color */
+}
+
+/* Search button styling */
+.form-inline .btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #007bff; /* Primary color for button */
+    border: 1px solid #007bff; /* Primary border color */
+    color: #fff; /* Text color */
+}
+
+    /* Hover effect for search button */
+    .form-inline .btn:hover {
+        background-color: #0056b3; /* Darker color on hover */
+        border: 1px solid #0056b3; /* Darker border color on hover */
+    }
+
+/* Login and Register button styling */
+.ml-3 .btn-outline-primary,
+.ml-3 .btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+    /* Hover effect for buttons */
+    .ml-3 .btn-outline-primary:hover,
+    .ml-3 .btn-primary:hover {
+        opacity: 0.8; /* Slight opacity on hover */
+    }
+

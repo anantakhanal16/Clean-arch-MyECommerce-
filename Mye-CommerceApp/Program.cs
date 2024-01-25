@@ -1,14 +1,13 @@
 using Infrastructure;
+using Infrastructure.Identity;
+using Infrastructure.Infra.Dependencies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.InfraServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -22,14 +21,46 @@ if (!app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCookiePolicy();
+
+app.UseAuthentication();
+
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+        endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    try
+    {
+
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        
+        var Identitycontext = services.GetRequiredService<AppIdentityDbcontext>();
+        
+        Identitycontext.Database.Migrate();
+
+        context.Database.Migrate();
+    
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "An error occurred while applying migrations or creating the database.");
+    }
+}
 
 app.Run();

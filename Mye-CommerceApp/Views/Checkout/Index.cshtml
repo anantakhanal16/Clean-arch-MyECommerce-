@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        /* Add custom styles here if needed */
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        /* Adjust spacing between form elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Checkout Form</h2>
+                <form method="post" action="/Checkout/CheckoutComplete/" id="checkoutForm">
+                    <div class="form-group">
+                        <label for="customerName">Name:</label>
+                        <input type="text" class="form-control" id="customerName" name="CustomerName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shippingAddress">Shipping Address:</label>
+                        <textarea class="form-control" id="shippingAddress" name="ShippingAddress" placeholder="Enter your shipping address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactNo">Contact Number:</label>
+                        <input type="text" class="form-control" id="contactNo" name="ContactNo" placeholder="Enter your contact number" required pattern="[0-9]+">
+                        <small class="form-text text-muted">Please enter a valid numeric contact number.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City:</label>
+                        <input type="text" class="form-control" id="city" name="City" placeholder="Enter your city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State:</label>
+                        <input type="text" class="form-control" id="state" name="State" placeholder="Enter your state" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Submit Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

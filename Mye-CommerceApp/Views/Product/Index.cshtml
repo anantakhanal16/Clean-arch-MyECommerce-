@@ -1,0 +1,46 @@
+﻿@model List<Mye_CommerceApp.Dtos.ProductListDto>
+@{
+    Layout = "AdminLayout";
+}
+<body>
+    <div class="mt-4">
+        <h2>Product List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>ProductType</th>
+                    <th>ProductBrand</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+                @if (Model != null)
+                {
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Price</td>
+                            <td>
+                                <img src="@Url.Content($"~/uploads/{product.PictureUrl}")" alt="@product.Name" style="width: 40px;"/>
+                            </td>
+                            <td>@product.ProductType</td>
+                            <td>@product.ProductBrand</td> 
+                        </tr>
+                    }
+
+                }
+                <!-- Product rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+   
+    </script>
+
+</body>
