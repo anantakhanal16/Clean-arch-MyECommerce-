@@ -30,6 +30,10 @@ namespace Infrastructure.Infra.Dependencies
 
             services.AddScoped<ICartRepository, CartRepository>();
 
+            services.AddScoped<ICheckoutRepository, CheckOutRepository>();
+
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
             services.AddScoped<IAuthenticationService, UserAuthentication>();
 
             services.AddDbContext<AppIdentityDbcontext>(options =>

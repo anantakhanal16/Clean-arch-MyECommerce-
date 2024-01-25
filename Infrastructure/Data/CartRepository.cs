@@ -32,13 +32,22 @@ namespace Infrastructure.Data
                   .Include(p => p.ProductType)
                   .Include(p => p.ProductBrand)
                 .ToListAsync();
+            
             return cartDetail;
-           
+
         }
 
-        public Task<Cart> GetCartItemByIdAsync(int id)
+        public async Task<IEnumerable<Cart>> GetCartItemByIdAsync(string id)
         {
-            throw new NotImplementedException();
+
+            var cartDetail = await _context.Cart
+                 .Where(c => c.AppUserId == id)
+                 .Include(p => p.Product)
+                 .Include(p => p.ProductType)
+                 .Include(p => p.ProductBrand)
+               .ToListAsync();
+            return cartDetail;
+
         }
 
         public Task RemoveCartItemAsync(int id)

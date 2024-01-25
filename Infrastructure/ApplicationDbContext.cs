@@ -1,5 +1,6 @@
 ﻿using Core.Entites;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Infrastructure
 {
@@ -14,6 +15,8 @@ namespace Infrastructure
         public DbSet<ProductType> ProductType { get; set; }
         public DbSet<ProductBrand> ProductBrand { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> Orderitems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()
@@ -41,8 +44,18 @@ namespace Infrastructure
                 .HasOne(c => c.ProductType)
                 .WithMany()
                 .HasForeignKey(c => c.ProductTypeId);
-        
-       
+
+
+            modelBuilder.Entity<Order>()
+             .HasMany(order => order.OrderItems)
+             .WithOne(orderDetail => orderDetail.Order)
+             .HasForeignKey(orderDetail => orderDetail.OrderId);
+
+            modelBuilder.Entity<OrderItem>()
+               .HasOne(orderDetail => orderDetail.Product)
+               .WithMany()  
+               .HasForeignKey(orderDetail => orderDetail.ProductId);
+
             base.OnModelCreating(modelBuilder);
         }
         

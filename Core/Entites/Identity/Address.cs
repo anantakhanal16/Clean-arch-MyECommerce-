@@ -16,7 +16,5 @@ namespace Core.Entites.Identity
 
         [Required]
         public string AppUserId { get; set; }
-
-        public AppUser AppUser { get; set; }
     }
 }
