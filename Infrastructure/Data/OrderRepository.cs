@@ -25,17 +25,8 @@ namespace Infrastructure.Data
 
         public async Task SaveOrder(Order order)
         {
-            try
-            {
-                var id= await _context.Order.AddAsync(order);
-                await _context.SaveChangesAsync();
-
-
-               
-            }
-            catch { }
-          
-
+            await _context.Order.AddAsync(order);
+            await _context.SaveChangesAsync();
         }
 
         Task IOrderRepository.DeleteOrder(int orderId)
