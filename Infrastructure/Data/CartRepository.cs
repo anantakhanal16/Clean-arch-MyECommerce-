@@ -40,27 +40,39 @@ namespace Infrastructure.Data
             return cartDetail;
         }
 
-        public async Task<IEnumerable<Cart>> GetCartItemByIdAsync(string id)
+        public async Task<Cart> GetCartItemByIdAsync(int productId)
         {
+            var cartItem = await _context.Cart.FirstOrDefaultAsync(c => c.ProductId == productId);
 
-            var cartDetail = await _context.Cart
-                 .Where(c => c.AppUserId == id)
-                 .Include(p => p.Product)
-                 .Include(p => p.ProductType)
-                 .Include(p => p.ProductBrand)
-               .ToListAsync();
-            return cartDetail;
+            return cartItem;
+        }
+
+        public async Task RemoveCartItemAsync(int id,  string currentUserId)
+        {
+            var product = await _context.Cart
+            .Where(c => c.AppUserId == currentUserId && c.Product.Id ==id)
+            .ToListAsync();
+            if (product != null)
+            {
+                _context.Cart.RemoveRange(product);
+                await _context.SaveChangesAsync();
+            }
+
+          
+        }
+
+        public async Task UpdateCartItemAsync(Cart UpdatedproductDetail)
+        {
+            var existingCart = await GetCartItemByIdAsync(UpdatedproductDetail.ProductId);
+
+            if (existingCart != null)
+            {
+                existingCart.Quantity = UpdatedproductDetail.Quantity;
+                existingCart.TotalPrice = UpdatedproductDetail.TotalPrice;
+            }
+            await _context.SaveChangesAsync();
 
         }
 
-        public Task RemoveCartItemAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateCartItemAsync(Cart UpdatedproductDetail)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -8,7 +8,7 @@ namespace Core.Interface.Repositories
 
         Task<Product> GetProductById(int id);
         Task AddProductAsync(Product product);
-        Task DeleteProductAsync(int id);
+        Task DeleteProductAsync(int productId);
         Task UpdateProductAsync(Product product);
     }
 }

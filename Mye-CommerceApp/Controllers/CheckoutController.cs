@@ -19,8 +19,19 @@ namespace Mye_CommerceApp.Controllers
             _orderRepository = orderRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            IEnumerable<Cart> Cart = await _cartRepository.GetCartAsync(UserId);
+
+            var totalItems = Cart?.Count() ?? 0;
+
+            if (totalItems == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -29,7 +40,7 @@ namespace Mye_CommerceApp.Controllers
         {
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            IEnumerable<Cart> Cart = await _cartRepository.GetCartItemByIdAsync(UserId);
+            IEnumerable<Cart> Cart = await _cartRepository.GetCartAsync(UserId);
 
             if (Cart != null)
             {
@@ -50,13 +61,20 @@ namespace Mye_CommerceApp.Controllers
                     TotalAmount = totalAmount,
                     OrderItems = OrderItems
                 };
+
                 await _orderRepository.SaveOrder(order);
 
                 await _cartRepository.ClearCartAsync(UserId);
+
+                return View();
             }
-            return View();
+            else
+            {
+                return RedirectToAction("Home/Index");
+            }
+
         }
 
-
+       
     }
 }
