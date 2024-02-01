@@ -29,6 +29,13 @@ namespace Infrastructure.Data
             return orders;
         }
 
+        public async Task<IEnumerable<Order>> GetAllOrders()
+        {
+            var orders = await _context.Order
+                        .ToListAsync();
+            return orders;
+        }
+
         public async Task<IEnumerable<Order>> GetOrderById(int orderId, string userId)
         {
 

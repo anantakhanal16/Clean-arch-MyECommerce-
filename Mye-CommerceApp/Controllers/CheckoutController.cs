@@ -12,11 +12,13 @@ namespace Mye_CommerceApp.Controllers
     {
         private readonly ICartRepository _cartRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IAuthenticationService _authService;
 
-        public CheckoutController(ICartRepository cartRepository,IOrderRepository orderRepository)
+        public CheckoutController(ICartRepository cartRepository,IOrderRepository orderRepository,IAuthenticationService authService)
         {
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
+            _authService = authService;
         }
 
         public async Task<IActionResult> Index()
@@ -39,6 +41,8 @@ namespace Mye_CommerceApp.Controllers
         public async Task<IActionResult> CheckoutComplete(OrderDto OrderDetails)
         {
             string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            
+            string userName = await _authService.GetUserNameAsync(UserId);
 
             IEnumerable<Cart> Cart = await _cartRepository.GetCartAsync(UserId);
 
@@ -58,6 +62,7 @@ namespace Mye_CommerceApp.Controllers
                 {
                     ShippingAddress = OrderDetails.ShippingAddress,
                     UserId = UserId,
+                    UserName = userName,
                     TotalAmount = totalAmount,
                     OrderItems = OrderItems
                 };

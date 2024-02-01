@@ -6,6 +6,7 @@ namespace Core.Interface.Repositories
     {
         Task<IEnumerable<Order>> GetOrderById(int orderId ,string userId);
         Task<IEnumerable<Order>> GetAllOrders(string userId);
+        Task<IEnumerable<Order>> GetAllOrders();
         Task SaveOrder(Order order);
         Task UpdateOrder(Order order);
         Task DeleteOrder(int orderId);

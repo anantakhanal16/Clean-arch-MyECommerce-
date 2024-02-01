@@ -6,6 +6,7 @@ namespace Mye_CommerceApp.Dtos
     {
         public int OrderId { get; set; }
         public string UserId { get; set; }
+        public string UserName { get; set; }
         public string ShippingAddress { get; set; }
         public decimal TotalAmount { get; set; }
         public DateTime DateTime { get; set; } = DateTime.UtcNow;
