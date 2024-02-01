@@ -16,16 +16,16 @@ namespace Infrastructure.Data
         public async Task AddProductToCartAsync(Cart productDetail)
         {
             await _context.AddAsync(productDetail);
+
             _context.SaveChanges();
         }
 
         public async Task ClearCartAsync(string userId)
         {
-            var cartItems = await _context.Cart
-             .Where(c => c.AppUserId == userId)
-             .ToListAsync();
+            var cartItems = await _context.Cart.Where(c => c.AppUserId == userId).ToListAsync();
 
              _context.Cart.RemoveRange(cartItems);
+            
             await _context.SaveChangesAsync();
         }
 
@@ -55,10 +55,9 @@ namespace Infrastructure.Data
             if (product != null)
             {
                 _context.Cart.RemoveRange(product);
+
                 await _context.SaveChangesAsync();
             }
-
-          
         }
 
         public async Task UpdateCartItemAsync(Cart UpdatedproductDetail)

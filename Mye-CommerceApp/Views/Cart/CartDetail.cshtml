@@ -101,7 +101,11 @@
         quantityInputs.forEach(input => {
             input.addEventListener("input", function () {
                 const quantity = Math.max(0, parseInt(this.value)) || 0;
-
+                
+                  if (quantity < 0) {
+                    quantity = 0;
+                    this.value = quantity;
+                }
                 const unitPrice = parseFloat(this.dataset.unitPrice);
                 const totalPrice = quantity * unitPrice;
                 const totalElement = this.closest(".card").querySelector(".total-price");

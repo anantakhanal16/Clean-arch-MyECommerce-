@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 using System.Security.Claims;
-using System.Threading.Channels;
 
 namespace Mye_CommerceApp.Controllers
 {
-   
     public class CartController : Controller
     {
         private readonly ICartRepository _cartService;
@@ -22,7 +20,7 @@ namespace Mye_CommerceApp.Controllers
         {
             _cartService = cartService;
             _productService = productService;
-            _user = user;
+            //_user = user;
         }
 
         [Authorize]
@@ -117,9 +115,9 @@ namespace Mye_CommerceApp.Controllers
 
             if (existingCartItem != null)
             {
-                existingCartItem.Quantity += quantity;
+                existingCartItem.Quantity = quantity;
 
-                existingCartItem.TotalPrice = existingCartItem.UnitPrice * existingCartItem.Quantity;
+                existingCartItem.TotalPrice = existingCartItem.UnitPrice * quantity;
 
                 await _cartService.UpdateCartItemAsync(existingCartItem);
 
