@@ -17,5 +17,12 @@ namespace Mye_CommerceApp.Dtos
 
         public decimal TotalPrice { get; set; }
     }
+    public class CartTotal
+    {
+        public decimal TotalPrice { get; set; }
+        public string Discount {  get; set; }
+
+        public string DeliveryCharge { get; set; }
+    }
 }
 

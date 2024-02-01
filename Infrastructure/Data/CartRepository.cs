@@ -16,48 +16,62 @@ namespace Infrastructure.Data
         public async Task AddProductToCartAsync(Cart productDetail)
         {
             await _context.AddAsync(productDetail);
+
             _context.SaveChanges();
         }
 
-        public Task ClearCartAsync()
+        public async Task ClearCartAsync(string userId)
         {
-            throw new NotImplementedException();
+            var cartItems = await _context.Cart.Where(c => c.AppUserId == userId).ToListAsync();
+
+             _context.Cart.RemoveRange(cartItems);
+            
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Cart>> GetCartAsync(string currentUserId)
         {
-            var cartDetail= await _context.Cart
+             var cartDetail = await _context.Cart
                   .Where(c=> c.AppUserId == currentUserId)
                   .Include(p => p.Product)
                   .Include(p => p.ProductType)
                   .Include(p => p.ProductBrand)
-                .ToListAsync();
-            
+                  .ToListAsync();
             return cartDetail;
-
         }
 
-        public async Task<IEnumerable<Cart>> GetCartItemByIdAsync(string id)
+        public async Task<Cart> GetCartItemByIdAsync(int productId)
         {
+            var cartItem = await _context.Cart.FirstOrDefaultAsync(c => c.ProductId == productId);
 
-            var cartDetail = await _context.Cart
-                 .Where(c => c.AppUserId == id)
-                 .Include(p => p.Product)
-                 .Include(p => p.ProductType)
-                 .Include(p => p.ProductBrand)
-               .ToListAsync();
-            return cartDetail;
-
+            return cartItem;
         }
 
-        public Task RemoveCartItemAsync(int id)
+        public async Task RemoveCartItemAsync(int id,  string currentUserId)
         {
-            throw new NotImplementedException();
+            var product = await _context.Cart
+            .Where(c => c.AppUserId == currentUserId && c.Product.Id ==id)
+            .ToListAsync();
+            if (product != null)
+            {
+                _context.Cart.RemoveRange(product);
+
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task UpdateCartItemAsync(Cart UpdatedproductDetail)
+        public async Task UpdateCartItemAsync(Cart UpdatedproductDetail)
         {
-            throw new NotImplementedException();
+            var existingCart = await GetCartItemByIdAsync(UpdatedproductDetail.ProductId);
+
+            if (existingCart != null)
+            {
+                existingCart.Quantity = UpdatedproductDetail.Quantity;
+                existingCart.TotalPrice = UpdatedproductDetail.TotalPrice;
+            }
+            await _context.SaveChangesAsync();
+
         }
+
     }
 }

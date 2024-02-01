@@ -8,7 +8,6 @@ using System.Security.Claims;
 
 namespace Mye_CommerceApp.Controllers
 {
-   
     public class CartController : Controller
     {
         private readonly ICartRepository _cartService;
@@ -21,7 +20,7 @@ namespace Mye_CommerceApp.Controllers
         {
             _cartService = cartService;
             _productService = productService;
-            _user = user;
+            //_user = user;
         }
 
         [Authorize]
@@ -55,9 +54,25 @@ namespace Mye_CommerceApp.Controllers
         {
             string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            Product productDetail = await _productService.GetProductById(productId);
-           
-          if (productDetail != null)
+            var cartDetail = await _cartService.GetCartAsync(currentUserId);
+
+            Cart existingCartItem = cartDetail.FirstOrDefault(product => product.ProductId == productId);
+
+            if (existingCartItem != null)
+            {
+                existingCartItem.Quantity += quantity;
+
+                existingCartItem.TotalPrice = existingCartItem.UnitPrice * existingCartItem.Quantity;
+                
+                await _cartService.UpdateCartItemAsync(existingCartItem);
+
+                return Json(new { success = true, message = "Item added to the cart successfully" });
+            }
+            else
+            {
+                Product productDetail = await _productService.GetProductById(productId);
+
+                if (productDetail != null)
                 {
                     Cart cartitemDetail = new Cart
                     {
@@ -74,10 +89,45 @@ namespace Mye_CommerceApp.Controllers
 
                     return Json(new { success = true, message = "Item added to the cart successfully" });
                 }
-            
-             
 
-                return Json(new { success = false, message = "Product not found" });
             }
+
+            return Json(new { success = false, message = "Product not found" });
+         }
+
+       
+        public async Task<IActionResult> DeleteCartItem(int productId)
+        {
+             string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+             await _cartService.RemoveCartItemAsync(productId, currentUserId);
+
+            return RedirectToAction("GetCart");
+        }
+
+        public async Task<IActionResult> UpdateCartItem(int quantity, int productId)
+        {
+            string currentUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var cartDetail = await _cartService.GetCartAsync(currentUserId);
+
+            Cart existingCartItem = cartDetail.FirstOrDefault(product => product.ProductId == productId);
+
+            if (existingCartItem != null)
+            {
+                existingCartItem.Quantity = quantity;
+
+                existingCartItem.TotalPrice = existingCartItem.UnitPrice * quantity;
+
+                await _cartService.UpdateCartItemAsync(existingCartItem);
+
+                return Json(new { success = true, message = "Item has been updated" });
+            }
+            else 
+            {
+                return Json(new { success = true, message = "Error" });
+            }
+
+        }
     }
 }

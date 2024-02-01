@@ -4,7 +4,6 @@ using Core.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
 using System.Security.Claims;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Mye_CommerceApp.Controllers
@@ -13,57 +12,74 @@ namespace Mye_CommerceApp.Controllers
     {
         private readonly ICartRepository _cartRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IAuthenticationService _authService;
 
-        public CheckoutController(ICartRepository cartRepository,IOrderRepository orderRepository)
+        public CheckoutController(ICartRepository cartRepository,IOrderRepository orderRepository,IAuthenticationService authService)
         {
             _cartRepository = cartRepository;
             _orderRepository = orderRepository;
+            _authService = authService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            IEnumerable<Cart> Cart = await _cartRepository.GetCartAsync(UserId);
+
+            var totalItems = Cart?.Count() ?? 0;
+
+            if (totalItems == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
         [Authorize]
         public async Task<IActionResult> CheckoutComplete(OrderDto OrderDetails)
         {
-           
-            string UserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            IEnumerable<Cart> Cart = await _cartRepository.GetCartItemByIdAsync(UserId);
+            string UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             
-            List<OrderItem> OrderItems = new List<OrderItem>();
+            string userName = await _authService.GetUserNameAsync(UserId);
+
+            IEnumerable<Cart> Cart = await _cartRepository.GetCartAsync(UserId);
 
             if (Cart != null)
             {
-                foreach (var cart in Cart)
+                List<OrderItem> OrderItems = Cart.Select(cart => new OrderItem
                 {
-                    OrderItem orderItem = new OrderItem();
-                    
-                    orderItem.ProductId = cart.ProductId;
-                    
-                    orderItem.Quantity = cart.Quantity;
+                    ProductId = cart.ProductId,
+                    Quantity = cart.Quantity,
+                    UnitPrice = cart.UnitPrice,
+                    TotalPrice = cart.Quantity * cart.UnitPrice
+                }).ToList();
 
-                    orderItem.UnitPrice = cart.UnitPrice;
+                decimal totalAmount = OrderItems.Sum(item => item.TotalPrice);
 
-                    orderItem.TotalPrice = cart.Quantity * cart.UnitPrice;
+                Order order = new Order
+                {
+                    ShippingAddress = OrderDetails.ShippingAddress,
+                    UserId = UserId,
+                    UserName = userName,
+                    TotalAmount = totalAmount,
+                    OrderItems = OrderItems
+                };
 
-                    OrderItems.Add(orderItem);
-                }
+                await _orderRepository.SaveOrder(order);
 
-                Order order = new Order();
+                await _cartRepository.ClearCartAsync(UserId);
 
-                order.ShippingAddress = OrderDetails.ShippingAddress;
-                order.UserId = UserId;
-                order.TotalAmount = Cart.Sum(item => item.Quantity * item.UnitPrice);
-                order.OrderItems = OrderItems;
-                
-               await  _orderRepository.SaveOrder(order);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Home/Index");
             }
 
-            return View();
-            
         }
+
+       
     }
 }

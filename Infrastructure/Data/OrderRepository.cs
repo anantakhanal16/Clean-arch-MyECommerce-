@@ -1,5 +1,7 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Infrastructure.Data
 {
@@ -12,15 +14,37 @@ namespace Infrastructure.Data
             _context = context;
         }
 
-      
-        public IEnumerable<Order> GetAllOrders()
+        public Task DeleteOrder(int orderId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Order> GetOrderById(int orderId)
+        public async Task<IEnumerable<Order>> GetAllOrders(string userId)
         {
-            throw new NotImplementedException();
+           
+            var orders = await _context.Order
+                        .Where(o => o.UserId == userId)
+                        .ToListAsync();
+
+            return orders;
+        }
+
+        public async Task<IEnumerable<Order>> GetAllOrders()
+        {
+            var orders = await _context.Order
+                        .ToListAsync();
+            return orders;
+        }
+
+        public async Task<IEnumerable<Order>> GetOrderById(int orderId, string userId)
+        {
+
+            var orders = await _context.Order
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product) 
+                .Where(o => o.UserId == userId && o.Id == orderId)
+                .ToListAsync();   
+            return orders;
         }
 
         public async Task SaveOrder(Order order)
@@ -29,14 +53,11 @@ namespace Infrastructure.Data
             await _context.SaveChangesAsync();
         }
 
-        Task IOrderRepository.DeleteOrder(int orderId)
+        public Task UpdateOrder(Order order)
         {
             throw new NotImplementedException();
         }
 
-        Task IOrderRepository.UpdateOrder(Order order)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

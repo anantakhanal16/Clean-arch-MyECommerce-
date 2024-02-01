@@ -21,6 +21,12 @@ namespace Infrastructure.Services
             _roleManager = roleManager;
         }
 
+        public async Task<string> GetUserNameAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId); 
+            return user?.UserName;
+        }
+
         public async Task<Status> LoginAsync(UserLogin model)
         {
             var status = new Status();
