@@ -1,7 +1,6 @@
 ﻿using Core.Entites.Identity;
 using Core.Interface.Repositories;
 using Infrastructure.Data;
-using Infrastructure.Identity;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -36,10 +35,10 @@ namespace Infrastructure.Infra.Dependencies
 
             services.AddScoped<IAuthenticationService, UserAuthentication>();
 
-            services.AddDbContext<AppIdentityDbcontext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"));
-            });
+            //services.AddDbContext<AppIdentityDbcontext>(options =>
+            //{
+            //    options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"));
+            //});
 
 
             services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -47,10 +46,9 @@ namespace Infrastructure.Infra.Dependencies
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
-        
             })
 
-           .AddEntityFrameworkStores<AppIdentityDbcontext>()
+           .AddEntityFrameworkStores<ApplicationDbContext>()
            
            .AddSignInManager<SignInManager<AppUser>>()
            

@@ -1,6 +1,5 @@
 ﻿using Core.Entites;
 using Core.Interface.Repositories;
-using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
@@ -13,14 +12,10 @@ namespace Mye_CommerceApp.Controllers
         private readonly ICartRepository _cartService;
 
         private readonly IProductRepository _productService;
-
-        private readonly AppIdentityDbcontext _user;
-
-        public CartController(ICartRepository cartService, IProductRepository productService, AppIdentityDbcontext user)
+        public CartController(ICartRepository cartService, IProductRepository productService)
         {
             _cartService = cartService;
             _productService = productService;
-            //_user = user;
         }
 
         [Authorize]

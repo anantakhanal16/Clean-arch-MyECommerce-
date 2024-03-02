@@ -1,16 +1,18 @@
 ﻿using Core.Entites;
+using Core.Entites.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Infrastructure
 {
-    public  class ApplicationDbContext: DbContext
+    public  class ApplicationDbContext:  IdentityDbContext<AppUser>
     {
        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
+        public DbSet<AppUser> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
         public DbSet<ProductBrand> ProductBrand { get; set; }

@@ -1,5 +1,4 @@
 using Infrastructure;
-using Infrastructure.Identity;
 using Infrastructure.Infra.Dependencies;
 using Infrastructure.Middlewares;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +20,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.UseMiddleware<ExceptionHandlingMiddlewares>();
-
 
 app.UseHttpsRedirection();
 
@@ -50,15 +48,8 @@ using (var scope = app.Services.CreateScope())
     var loggerFactory = services.GetRequiredService<ILoggerFactory>();
     try
     {
-
         var context = services.GetRequiredService<ApplicationDbContext>();
-        
-        var Identitycontext = services.GetRequiredService<AppIdentityDbcontext>();
-        
-        Identitycontext.Database.Migrate();
-
         context.Database.Migrate();
-    
     }
     catch (Exception ex)
     {
