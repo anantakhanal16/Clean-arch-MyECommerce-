@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fNXiZRzIccsAWPTcfeFoscqA+Z91HfGWMURlIAI/ZKKZTja8fP86QdaB0X+YwyKte9fSVwvZGOY7PQHCBpRmJw==",
+  "dgSpecHash": "HmQeYsqY2YNV+b/vrZAYBGPEVjZ11jionlViOv5hxDEan1ECpQ51VnOtMPRsAVPkV8LDPaWs79/wVi08rplJYQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
+  "projectFilePath": "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saruk\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.0\\microsoft.aspnetcore.cryptography.internal.6.0.0.nupkg.sha512",
     "C:\\Users\\saruk\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.0\\microsoft.aspnetcore.cryptography.keyderivation.6.0.0.nupkg.sha512",
