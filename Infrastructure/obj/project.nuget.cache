@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sELeQ+S6y+nVbJsazVaI6T3UiV1P0fdZDKv3QQ3rHST1S2WgOkP6FPJCuat6KnuJvW6EcpSWKjU2SpX1APSGAA==",
+  "dgSpecHash": "ZUVBbJOI0jJcsesDa0DFqaeKOAoe5vEh3nypWcNeIEPhYGcF7C+55mr7x8iz/mCUPa32r1yHoXH98x6OEYP2vg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saruk\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\saruk\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

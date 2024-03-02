@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JcQ0eqgGcX+vgqoquYoiw5iGksyiqZ0slkNqANa9CPWFqpPcegq2kZBxr93DJqUZJ1NdE/smhcN+VB6ilMaeAg==",
+  "dgSpecHash": "cCgSa1bMWNx5hlH9AqeCYLxpOR5Dg35wZVh88bSSwsgrnUb84lpaNgLJ805+Ju1kvb4gALyMf6X46i8a6XsBUg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\saruk\\Desktop\\Database design\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\Mye-CommerceApp.csproj",
+  "projectFilePath": "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Mye-CommerceApp\\Mye-CommerceApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saruk\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\saruk\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
