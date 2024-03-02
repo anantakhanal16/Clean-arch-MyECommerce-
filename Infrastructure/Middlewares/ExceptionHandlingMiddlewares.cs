@@ -23,8 +23,7 @@ namespace Infrastructure.Middlewares
             catch (Exception ex)
             {
                 LogException(ex);
-                throw ex;
-
+                throw;
             }
         }
         private void LogException(Exception ex)

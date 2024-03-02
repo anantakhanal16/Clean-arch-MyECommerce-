@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure.Identity.Migrations
+namespace Infrastructure.Migrations
 {
-    public partial class IdentityInitial : Migration
+    public partial class ChangedApplicationDbContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
