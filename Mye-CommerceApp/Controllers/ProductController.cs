@@ -27,7 +27,7 @@ namespace Mye_CommerceApp.Controllers
         public async Task<IActionResult> Index()
         {
            
-            IEnumerable<Product> products = await _productService.GetProductsAsync();
+            IEnumerable<Product> products = await _productService.GetProductsAsync(null,null,null,null);
 
             List<ProductListDto> newproducts = new List<ProductListDto>();
 
