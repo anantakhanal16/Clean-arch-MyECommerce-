@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Core\\Core.csproj": {}
+    "C:\\Users\\saruk\\Desktop\\New folder\\Clean-arch-MyECommerce-\\Core\\Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Core\\Core.csproj": {
+    "C:\\Users\\saruk\\Desktop\\New folder\\Clean-arch-MyECommerce-\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\saruk\\Desktop\\New folder\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
+        "projectPath": "C:\\Users\\saruk\\Desktop\\New folder\\Clean-arch-MyECommerce-\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\saruk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\saruk\\Desktop\\clean arch e commerce app\\Clean-arch-MyECommerce-\\Core\\obj\\",
+        "outputPath": "C:\\Users\\saruk\\Desktop\\New folder\\Clean-arch-MyECommerce-\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -14,8 +14,8 @@ namespace Infrastructure.Data
 
         public async Task AddProductAsync(Product product)
         {
-             await _context.Products.AddAsync(product);
-             await _context.SaveChangesAsync();
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteProductAsync(int id)
@@ -37,12 +37,32 @@ namespace Infrastructure.Data
 
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync(string productTypeFilter, string productBrandFilter, decimal? minPriceFilter, decimal? maxPriceFilter)
         {
-            return await _context.Products
+            IQueryable<Product> query = _context.Products
                 .Include(p => p.ProductType)
-                .Include(p => p.ProductBrand)
-                .ToListAsync();
+                .Include(p => p.ProductBrand);
+
+
+            if (!string.IsNullOrEmpty(productTypeFilter))
+            {
+                query = query.Where(p => p.ProductType.Name == productTypeFilter);
+            }
+            if (!string.IsNullOrEmpty(productBrandFilter))
+            {
+                query = query.Where(p => p.ProductBrand.Name == productBrandFilter);
+            }
+            if (minPriceFilter.HasValue)
+            {
+                query = query.Where(p => p.Price >= minPriceFilter.Value);
+            }
+            if (maxPriceFilter.HasValue)
+            {
+                query = query.Where(p => p.Price <= maxPriceFilter.Value);
+            }
+
+
+            return await query.ToListAsync();
         }
 
         public Task UpdateProductAsync(Product product)

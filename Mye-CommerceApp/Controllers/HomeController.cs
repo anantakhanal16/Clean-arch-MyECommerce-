@@ -2,8 +2,6 @@
 using Core.Interface.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Mye_CommerceApp.Dtos;
-using Mye_CommerceApp.Models;
-using System.Diagnostics;
 
 namespace Mye_CommerceApp.Controllers
 {
@@ -12,18 +10,33 @@ namespace Mye_CommerceApp.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly IProductRepository _productService;
+        private readonly IProductBrandRepository _productBrandService;
+        private readonly IProductTypeRepository _productTypeService;
 
-        public HomeController(ILogger<HomeController> logger, IProductRepository productService)
+        public HomeController(ILogger<HomeController> logger, IProductRepository productService,
+             IProductBrandRepository productBrandService
+            , IProductTypeRepository productTypeService)
         {
             _logger = logger;
             _productService = productService;
+            _productBrandService = productBrandService;
+            _productTypeService = productTypeService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string productTypeFilter, string productBrandFilter, decimal? minPriceFilter, decimal? maxPriceFilter)
         {
-            IEnumerable<Product> products = await _productService.GetProductsAsync();
+            Home model = new Home();
 
-            List<ProductListDto> newproducts = new List<ProductListDto>();
+            IEnumerable<Product> products = await _productService.GetProductsAsync(productTypeFilter, productBrandFilter, minPriceFilter, maxPriceFilter);
+
+            IEnumerable<ProductBrand> productBrand = await _productBrandService.GetBrandsAsync();
+
+            IEnumerable<ProductType> productType = await _productTypeService.GetProductTypesAsync();
+
+            model.SelectedProductTypeFilter = productTypeFilter;
+            model.SelectedProductBrandFilter = productBrandFilter;
+            model.MinPriceFilter = minPriceFilter;
+            model.MaxPriceFilter = maxPriceFilter;
 
             foreach (var product in products)
             {
@@ -37,10 +50,34 @@ namespace Mye_CommerceApp.Controllers
                     ProductType = product.ProductType.Name,
                     ProductBrand = product.ProductBrand.Name,
                 };
-
-                newproducts.Add(productDto);
+                model.productList.Add(productDto);
             }
-            return View(newproducts);
+
+            foreach (var pBrand in productBrand)
+            {
+                var Brands = new ProductBrandList
+                {
+                    Id = pBrand.Id,
+                    Name = pBrand.Name,
+                };
+
+                model.productbrandList.Add(Brands);
+
+            }
+
+            foreach (var pType in productType)
+            {
+                var Type = new ProducttypeList
+                {
+                    Id = pType.Id,
+                    Name = pType.Name,
+
+                };
+
+                model.producttypelist.Add(Type);
+            }
+
+            return View(model);
         }
 
         public async Task<IActionResult> ProductDetails(int id)
@@ -52,17 +89,6 @@ namespace Mye_CommerceApp.Controllers
                 return NotFound();
             }
             return View(product);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

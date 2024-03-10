@@ -1,4 +1,6 @@
-﻿@model List<Mye_CommerceApp.Dtos.ProductListDto>
+﻿@using Mye_CommerceApp.Dtos
+
+@model Mye_CommerceApp.Dtos.Home
 
 <style>
     body {
@@ -167,9 +169,11 @@
                 opacity: 1;
                 color: #ffc107;
             }
+
+
+
+
 </style>
-
-
 
 
 
@@ -186,64 +190,71 @@
 
 <div class="container">
     <div class="row">
-        <!-- Filter Area -->
-        <div class="col-lg-2">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title text-primary">Filters</h2>
+     <div class="col-lg-2">
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="@Url.Action("Index", "Home")">
+                <h2 class="card-title text-primary">Filters</h2>
 
-                    <!-- Product Type Dropdown -->
-                    <div class="form-group">
-                        <label for="productType">Product Type</label>
-                        <select class="form-control" id="productType">
-                            <option value="0">Select Product Type</option>
-                            <option value="1">Electronics</option>
-                            <option value="2">Clothing</option>
-                            <option value="3">Home Appliances</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                    </div>
+                <!-- Product Type Dropdown -->
+                <div class="form-group">
+                    <label for="productType">Product Type</label>
+                    <select class="form-control" id="productType" name="productTypeFilter">
+                        <option value=""></option>
+                        @if (Model != null)
+                        {
+                            foreach (var pType in Model.producttypelist)
+                            {                                       
+                                <option value="@pType.Name" selected="@((pType.Name == Model.SelectedProductTypeFilter) ? "selected" : null)">@pType.Name</option>
 
-                    <!-- Product Brand Dropdown -->
-                    <div class="form-group">
-                        <label for="productBrand">Product Brand</label>
-                        <select class="form-control" id="productBrand">
-                            <option value="0">Select Product Brand</option>
-                            <option value="1">Sony</option>
-                            <option value="2">Nike</option>
-                            <option value="3">Samsung</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                    </div>
-
-                    <!-- Price Range Slider -->
-                    <div class="form-group">
-                        <label for="priceRange">Price Range</label>
-                        <input type="range" class="form-range" id="priceRange" min="0" max="1000">
-                        <p>Min Price: <span id="minPrice">0</span></p>
-                        <p>Max Price: <span id="maxPrice">1000</span></p>
-                    </div>
-
-                    <!-- Ratings Star Rating -->
-                    <div class="form-group">
-                        <label for="ratings">Ratings</label>
-                        <div class="rating">
-                            <input type="radio" name="ratings" id="star5" value="5">
-                            <label for="star5"></label>
-                            <input type="radio" name="ratings" id="star4" value="4">
-                            <label for="star4"></label>
-                            <input type="radio" name="ratings" id="star3" value="3">
-                            <label for="star3"></label>
-                            <input type="radio" name="ratings" id="star2" value="2">
-                            <label for="star2"></label>
-                            <input type="radio" name="ratings" id="star1" value="1">
-                            <label for="star1"></label>
-                        </div>
-                    </div>
-
+                            }
+                        }
+                        else
+                        {
+                            <option value="">No data</option>
+                        }
+                    </select>
                 </div>
-            </div>
+
+                <!-- Product Brand Dropdown -->
+                <div class="form-group">
+                    <label for="productBrand">Product Brand</label>
+                    <select class="form-control" id="productBrand" name="productBrandFilter">
+                        <option value=""></option>
+                        @if (Model != null)
+                        {
+                            foreach (var pBrand in Model.productbrandList)
+                            {
+                               <option value="@pBrand.Name" selected="@((pBrand.Name == Model.SelectedProductBrandFilter) ? "selected" : null)">@pBrand.Name</option>
+
+                            }
+                        }
+                        else
+                        {
+                            <option value="">No data</option>
+                        }
+                    </select>
+                </div>
+
+                <!-- Price Range Inputs -->
+                <div class="form-group">
+                    <label for="minPriceInput">Min Price</label>
+                    <input type="number" class="form-control" id="minPriceInput" name="minPriceFilter" min="0" max="1000" step="any" value="@Model.MinPriceFilter">
+                </div>
+                <div class="form-group">
+                    <label for="maxPriceInput">Max Price</label>
+                    <input type="number" class="form-control" id="maxPriceInput" name="maxPriceFilter" min="0" max="1000" step="any" value="@Model.MaxPriceFilter">
+                </div>
+
+                <!-- Ratings Star Rating -->
+                <!-- Add your ratings input elements here -->
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
+    </div>
+</div>
+
 
 
         <!-- Products Area -->
@@ -255,31 +266,30 @@
                         <!-- Repeat the product structure using a loop -->
                         @if (Model != null)
                         {
-                            @foreach (var product in Model)
-                                {
+                            @foreach (var product in Model.productList)
+                            {
                                 <!-- Inside the product card loop -->
                                 <div class="col-md-3 mb-4">
                                     <a href="@Url.Action("ProductDetails", "Home", new { id = product.Id})" class="product-link text-decoration-none">
-                                    <div class="card product-card">
-                                        <img src="@Url.Content($"~/uploads/{product.PictureUrl}")" class="card-img-top" alt="Product Image">
-                                        <div class="card-body product-details">
-                                            <h5 class="card-title">@product.Name</h5>
-                                            <p class="card-text" id="productDescription">@product.Description</p>
-                                            <p class="card-text" id="productPrice">@product.Price</p>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                              
+                                        <div class="card product-card">
+                                            <img src="@Url.Content($"~/uploads/{product.PictureUrl}")" class="card-img-top" alt="Product Image">
+                                            <div class="card-body product-details">
+                                                <h5 class="card-title">@product.Name</h5>
+                                                <p class="card-text" id="productDescription">@product.Description</p>
+                                                <p class="card-text" id="productPrice">@product.Price</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </a>
                                 </div>
-                               <script>
-                                   // Truncate the description after the page has loaded
-                                   document.getElementById("productDescription").innerText = truncateDescription("@product.Description", 20);
-                               </script>
+                                <script>
+                                    // Truncate the description after the page has loaded
+                                    document.getElementById("productDescription").innerText = truncateDescription("@product.Description", 20);
+                                </script>
                             }
                         }
-                    
+
                     </div>
                 </div>
             </div>
